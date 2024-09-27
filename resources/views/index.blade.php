@@ -13,6 +13,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Joti+One&display=swap" rel="stylesheet">
         <!-- Styles -->
         @vite('resources/css/app.css')
+        <!-- JS -->
+        <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
     </head>
     <body class="relative bg-no-repeat bg-center h-[100dvh] bg-cover" style="background-image: url('{{ asset('assets/images/wayang-blur.png') }}'); background-position: center;">
         @component('components.splash-screen')
@@ -29,15 +31,36 @@
                             <button>
                                 <img class="w-8" src="{{ asset('assets/images/gear.svg') }}" alt="">
                             </button>
-                            <button>
+                            <button id="info-button">
                                 <img class="w-8" src="{{ asset('assets/images/info.svg') }}" alt="">
                             </button>
                         </div>
-                        <button class="bg-marun font-joti text-white px-4 py-2 rounded-full border-black border-2">
-                            Keluar
+                        {{-- TODO: confirm --}}
+                        <button onclick="window.location.replace('https://google.com')" class="bg-marun font-joti text-white px-4 py-2 rounded-full border-black border-2">
+                            Kembali
                         </button>
                     </div>
                 </div>
+                <div id="info-overlay" class="absolute top-0 left-0 w-full h-full bg-black/85 hidden">
+                    <div class="flex flex-col justify-center items-center h-full w-full animate-pop">
+                        <img class="w-6/8 max-w-80" src="{{ asset('assets/images/dimas-pramudita.png') }}" alt="">
+                        <div class="bg-marun text-white px-6 py-2 rounded-full border-black border-[4px] text-center w-[80%] max-w-96">
+                            <p>Dikembangkan Oleh:</p>
+                            <p class="font-bold text-lg">Putu Dimas Pramudita</p>
+                        </div>
+                        <button id="panduan-button" class="mt-3 bg-marun font-joti text-white px-6 py-3 rounded-full border-black border-[4px]" id="info-close">
+                            Panduan
+                        </button>
+                    </div>
+                </div>
+                <script>
+                    $('#info-button').click(function() {
+                        $('#info-overlay').fadeIn();
+                    });
+                    $('#info-overlay').click(function() {
+                        $('#info-overlay').fadeOut();
+                    });
+                </script>
                 @endsection
             @endcomponent
         @endsection
