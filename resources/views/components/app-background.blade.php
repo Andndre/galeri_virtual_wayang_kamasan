@@ -19,7 +19,7 @@
             <div class="w-full h-6 bg-repeat-x bg-marun z-0" style="background-image: url('{{ asset('assets/images/kiran.png') }}'); background-size: auto 100%;">
             </div>
         </div>
-        <div class="absolute top-24 right-8">
+        <div class="absolute top-56 right-8">
             <img class="w-2/3 max-w-48 scale-y-[-1]" src="{{ asset('assets/images/ornamen.png') }}" alt="Welcome">
         </div>
         <div class="absolute bottom-24 left-8">

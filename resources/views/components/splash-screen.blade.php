@@ -9,7 +9,7 @@
     }
 </style>
 
-<div id="splash-screen" class="absolute inset-0 flex flex-col justify-center items-center">
+<div id="splash-screen" class="absolute inset-0 flex flex-col justify-center items-center animate-fadeIn">
     <div class="absolute z-10 top-0 w-full">
         <div class="w-full h-6 bg-repeat-x bg-marun" style="background-image: url('{{ asset('assets/images/kiran.png') }}'); background-size: auto 100%;">
         </div>
@@ -35,7 +35,7 @@
         <img class="w-2/3 max-w-48" src="{{ asset('assets/images/ornamen.png') }}" alt="Welcome">
     </div>
     <div class="w-full h-full flex justify-center items-center z-10">
-        <img class="w-2/3 max-w-64" src="{{ asset('assets/images/splash-logo.png') }}" alt="Welcome">
+        <img class="w-2/3 max-w-64 animate-pop" src="{{ asset('assets/images/splash-logo.png') }}" alt="Welcome">
     </div>
 </div>
 
