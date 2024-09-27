@@ -53,12 +53,68 @@
                         </button>
                     </div>
                 </div>
+                <div id="panduan-overlay" class="absolute top-0 left-0 w-full h-full bg-black/85 hidden">
+                    <div class="flex flex-col justify-center items-start h-full w-full">
+                        @php
+                            $panduan = [
+                                [
+                                    'icon' => asset('assets/images/login.png'),
+                                    'text' => 'Masuk ke menu Galeri Virtual Lukisan Wayang Kamasan'
+                                ],
+                                [
+                                    'icon' => asset('assets/images/user-group.png'),
+                                    'text' => 'Pilih Pelukis untuk melihat informasi, karya dan Galeri Virtual AR Portal'
+                                ],
+                                [
+                                    'icon' => asset('assets/images/menu.png'),
+                                    'text' => 'Masuk ke menu AR Portal'
+                                ],
+                                [
+                                    'icon' => asset('assets/images/search.png'),
+                                    'text' => 'Cari tempat lapang untuk menentukan titik munculnya Portal'
+                                ],
+                                [
+                                    'icon' => asset('assets/images/camera.png'),
+                                    'text' => 'Arahkan kamera ke tempat lapang hingga muncul bidang AR kuning, lalu klik bidang tersebut untuk memunculkan Portal Galeri Virtual Lukisan Wayang Kamasan'
+                                ],
+                                [
+                                    'icon' => asset('assets/images/portal.png'),
+                                    'text' => 'Masuk ke Portal dan arahkan kamera untuk melihat beberapa produk Lukisan Wayang kamasan'
+                                ],
+                            ];
+                        @endphp
+                        @foreach ($panduan as $p)
+                            <div class="panduan-item mt-3 bg-marun text-white px-6 py-3 rounded-r-full border-black border-r-[4px] border-t-[4px] border-b-[4px] flex gap-3 opacity-0">
+                                <div class="rounded-full bg-white p-2 flex items-center justify-center" style="width: 50px; height: 50px; flex-shrink: 0;">
+                                    <img class="w-8 h-8" src="{{ $p['icon'] }}" alt="">
+                                </div>
+                                <p>{{ $p['text'] }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
                 <script>
                     $('#info-button').click(function() {
                         $('#info-overlay').fadeIn();
                     });
+
                     $('#info-overlay').click(function() {
                         $('#info-overlay').fadeOut();
+                    });
+
+                    $('#panduan-overlay').click(function() {
+                        $('#panduan-overlay').fadeOut();
+                    });
+
+                    $('#panduan-button').click(function() {
+                        $('#panduan-overlay').fadeIn();
+                        $('#info-overlay').fadeOut();
+
+                        $('.panduan-item').each(function(index) {
+                            $(this).delay(index * 200).animate({
+                                opacity: 1
+                            }, 100);
+                        });
                     });
                 </script>
                 @endsection
