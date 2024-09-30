@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'creator' => [
+            'driver' => 'session',
+            'provider' => 'user_creators',
+        ]
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        'juri' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\UserCreator::class,
         ],
 
         // 'users' => [

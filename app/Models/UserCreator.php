@@ -3,9 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class UserCreator extends Model
+class UserCreator extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
+
+    protected $guard = 'peserta';
+
+    // hidden
+    protected $hidden = [
+        'password',
+        'password_raw',
+    ];
+
+    // fillable
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'password_raw',
+        'whatsapp',
+        'address',
+        'profile'
+    ];
 }
