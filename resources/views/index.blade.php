@@ -31,18 +31,40 @@
                         </button>
                         <div class="flex justify-between mb-12 px-12 w-full">
                             <div class="flex gap-2">
-                                <button>
+                                <button id="settings-button">
                                     <img class="w-8" src="{{ asset('assets/images/gear.svg') }}" alt="">
                                 </button>
                                 <button id="info-button">
                                     <img class="w-8" src="{{ asset('assets/images/info.svg') }}" alt="">
                                 </button>
                             </div>
-                            {{-- TODO: confirm --}}
-                            <button onclick="window.location.replace('https://google.com')"
-                                class="bg-marun font-joti text-white px-4 py-2 rounded-full border-black border-2">
-                                Kembali
-                            </button>
+                        </div>
+                    </div>
+                    <div id="settings-overlay" class="absolute top-0 left-0 w-full h-full bg-black/85 hidden">
+                        <div class="flex flex-col justify-center items-center h-full w-full animate-pop">
+                            {{-- language settings --}}
+                            <div class="flex flex-col justify-center items-center h-full w-full">
+                                <div class="flex flex-col gap-3">
+                                    {{-- title --}}
+                                    <div class="bg-marun text-white px-12 py-2 rounded-full border-black border-[4px] text-center font-joti">
+                                        <h3 class="text-2xl">Pengaturan</h3>
+                                    </div>
+                                    <div class="flex flex-col bg-marun text-white rounded-3xl border-black border-[4px] text-center font-joti overflow-hidden">
+                                        <p class="text-left px-6 py-3">Pilih Bahasa</p>
+                                        <button class="bg-cokelat px-6 py-3 flex gap-4 items-center"
+                                            id="english-button">
+                                            <img class="w-10 aspect-square" src="{{ asset('assets/images/indonesia.png') }}" alt="">
+                                            <span class="font-sans">Indonesia</span>
+                                        </button>
+                                        <div class="pt-2"></div>
+                                        <button class="bg-cokelat px-6 py-3 flex gap-4 items-center"
+                                            id="indonesia-button">
+                                            <img class="w-10 aspect-square" src="{{ asset('assets/images/english.png') }}" alt="">
+                                            <span class="font-sans">English</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="info-overlay" class="absolute top-0 left-0 w-full h-full bg-black/85 hidden">
@@ -106,6 +128,15 @@
                         </div>
                     </div>
                     <script>
+
+                        $('#settings-button').click(function() {
+                            $('#settings-overlay').fadeIn();
+                        });
+
+                        $('#settings-overlay').click(function() {
+                            $('#settings-overlay').fadeOut();
+                        });
+
                         $('#info-button').click(function() {
                             $('#info-overlay').fadeIn();
                         });

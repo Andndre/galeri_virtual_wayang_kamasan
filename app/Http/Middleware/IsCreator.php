@@ -16,8 +16,8 @@ class IsCreator
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::guard('creator')->check()) {
-            return redirect('/login');
+        if (!Auth::guard("creator")->check()) {
+            return redirect("/login");
         }
         return $next($request);
     }
