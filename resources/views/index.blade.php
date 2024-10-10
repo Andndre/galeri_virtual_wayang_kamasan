@@ -26,8 +26,9 @@
                 @section('foreground')
                     <div class="flex flex-col justify-between items-center h-[100dvh] w-full">
                         <img class="w-6/8 max-w-80 mt-24" src="{{ asset('assets/images/text-logo.png') }}" alt="">
-                        <button class="flex justify-center">
+                        <button class="flex justify-center items-center relative">
                             <img class="w-6/8 max-w-80" src="{{ asset('assets/images/btn-home.png') }}" alt="Welcome">
+                            <p class="absolute font-joti text-xl text-light w-44 mt-[-.4rem]">{{__('app.gallery_button')}}</p>
                         </button>
                         <div class="flex justify-between mb-12 px-12 w-full">
                             <div class="flex gap-2">
@@ -45,23 +46,22 @@
                             {{-- language settings --}}
                             <div class="flex flex-col justify-center items-center h-full w-full">
                                 <div class="flex flex-col gap-3">
-                                    {{-- title --}}
                                     <div class="bg-marun text-white px-12 py-2 rounded-full border-black border-[4px] text-center font-joti">
-                                        <h3 class="text-2xl">Pengaturan</h3>
+                                        <h3 class="text-2xl">{{__('app.settings')}}</h3>
                                     </div>
                                     <div class="flex flex-col bg-marun text-white rounded-3xl border-black border-[4px] text-center font-joti overflow-hidden">
-                                        <p class="text-left px-6 py-3">Pilih Bahasa</p>
-                                        <button class="bg-cokelat px-6 py-3 flex gap-4 items-center"
+                                        <p class="text-left px-6 py-3">{{__('app.language')}}</p>
+                                        <a href="{{ route('change-language', 'id') }}" class="bg-cokelat px-6 py-3 flex gap-4 items-center"
                                             id="english-button">
                                             <img class="w-10 aspect-square" src="{{ asset('assets/images/indonesia.png') }}" alt="">
                                             <span class="font-sans">Indonesia</span>
-                                        </button>
+                                        </a>
                                         <div class="pt-2"></div>
-                                        <button class="bg-cokelat px-6 py-3 flex gap-4 items-center"
+                                        <a href="{{ route('change-language', 'en') }}" class="bg-cokelat px-6 py-3 flex gap-4 items-center"
                                             id="indonesia-button">
                                             <img class="w-10 aspect-square" src="{{ asset('assets/images/english.png') }}" alt="">
                                             <span class="font-sans">English</span>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -72,13 +72,13 @@
                             <img class="w-6/8 max-w-80" src="{{ asset('assets/images/dimas-pramudita.png') }}" alt="">
                             <div
                                 class="bg-marun text-white px-6 py-2 rounded-full border-black border-[4px] text-center w-[80%] max-w-96">
-                                <p>Dikembangkan Oleh:</p>
+                                <p>{{__('app.developed_by')}}</p>
                                 <p class="font-bold text-lg">Putu Dimas Pramudita</p>
                             </div>
                             <button id="panduan-button"
                                 class="mt-3 bg-marun font-joti text-white px-6 py-3 rounded-full border-black border-[4px]"
                                 id="info-close">
-                                Panduan
+                                {{__('app.guide')}}
                             </button>
                         </div>
                     </div>
@@ -88,30 +88,27 @@
                                 $panduan = [
                                     [
                                         'icon' => asset('assets/images/login.png'),
-                                        'text' => 'Masuk ke menu Galeri Virtual Lukisan Wayang Kamasan',
+                                        'text' => __('app.guide_content.1'),
                                     ],
                                     [
                                         'icon' => asset('assets/images/user-group.png'),
-                                        'text' =>
-                                            'Pilih Pelukis untuk melihat informasi, karya dan Galeri Virtual AR Portal',
+                                        'text' => __('app.guide_content.2'),
                                     ],
                                     [
                                         'icon' => asset('assets/images/menu.png'),
-                                        'text' => 'Masuk ke menu AR Portal',
+                                        'text' => __('app.guide_content.3'),
                                     ],
                                     [
                                         'icon' => asset('assets/images/search.png'),
-                                        'text' => 'Cari tempat lapang untuk menentukan titik munculnya Portal',
+                                        'text' => __('app.guide_content.4'),
                                     ],
                                     [
                                         'icon' => asset('assets/images/camera.png'),
-                                        'text' =>
-                                            'Arahkan kamera ke tempat lapang hingga muncul bidang AR kuning, lalu klik bidang tersebut untuk memunculkan Portal Galeri Virtual Lukisan Wayang Kamasan',
+                                        'text' => __('app.guide_content.5'),
                                     ],
                                     [
                                         'icon' => asset('assets/images/portal.png'),
-                                        'text' =>
-                                            'Masuk ke Portal dan arahkan kamera untuk melihat beberapa produk Lukisan Wayang kamasan',
+                                        'text' => __('app.guide_content.6'),
                                     ],
                                 ];
                             @endphp

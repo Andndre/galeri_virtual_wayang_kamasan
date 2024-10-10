@@ -11,6 +11,7 @@ export default {
             bg: '#FFF3DB',
             marun: '#8F2918',
             cokelat: '#521919',
+            light: '#FEE2C8',
         },
         fontFamily: {
             joti: ['Joti One', 'cursive']
