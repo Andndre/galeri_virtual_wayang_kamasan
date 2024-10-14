@@ -10,7 +10,7 @@ class UserCreator extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $guard = 'peserta';
+    protected $guard = 'creator';
 
     // hidden
     protected $hidden = [
@@ -28,4 +28,17 @@ class UserCreator extends Authenticatable
         'address',
         'profile'
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 }

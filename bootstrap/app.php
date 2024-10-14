@@ -16,6 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
             StartSession::class,
             \App\Http\Middleware\Localization::class,
         ]);
+        $middleware->alias([
+            'guest' => \App\Http\Middleware\Guest::class,
+            'is:creator' => \App\Http\Middleware\IsCreator::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

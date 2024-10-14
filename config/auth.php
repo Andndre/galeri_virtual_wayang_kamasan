@@ -42,7 +42,7 @@ return [
         ],
         'creator' => [
             'driver' => 'session',
-            'provider' => 'user_creators',
+            'provider' => 'creators',
         ]
     ],
 
@@ -66,9 +66,9 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\User::class,
         ],
-        'juri' => [
+        'creators' => [
             'driver' => 'eloquent',
             'model' => App\Models\UserCreator::class,
         ],
