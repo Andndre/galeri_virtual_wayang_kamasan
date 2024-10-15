@@ -15,5 +15,12 @@ Route::get('/change-language/{lang}', function (string $lang) {
     return redirect()->route('home-page');
 })->name('change-language');
 
-Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/try-login', [App\Http\Controllers\LoginController::class, 'login'])->name('login-post')->middleware('guest');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
