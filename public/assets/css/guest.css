@@ -1,0 +1,138 @@
+/* Background full screen */
+.fullscreen-background {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Main content wrapper */
+#main-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Section utama untuk konten */
+.main-section {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 150px); /* Sesuaikan ukuran konten utama */
+}
+
+/* Top border */
+.top-border {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.header-border {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Bottom border */
+.bottom-border {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.footer-border {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Ornament di sudut halaman */
+.ornament {
+    width: 100px; /* Sesuaikan ukuran ornament */
+    height: 100px; /* Sesuaikan ukuran ornament */
+}
+
+.ornament-top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 5;
+}
+
+.ornament-bottom-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+}
+
+/* Ornament corner untuk semua sudut */
+.ornament-corner-wrapper {
+    position: absolute;
+    width: 100px; /* Sesuaikan dengan ukuran hiasan */
+    height: 100px; /* Sesuaikan dengan ukuran hiasan */
+    z-index: 10; /* pastikan di atas elemen lain */
+}
+
+/* Ornament di sudut atas kiri */
+.ornament-corner-wrapper:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+
+/* Ornament di sudut atas kanan */
+.ornament-corner-wrapper:nth-child(2) {
+    top: 0;
+    right: 0;
+}
+
+/* Ornament di sudut bawah kiri */
+.ornament-corner-wrapper:nth-child(3) {
+    bottom: 0;
+    left: 0;
+}
+
+/* Ornament di sudut bawah kanan */
+.ornament-corner-wrapper:nth-child(4) {
+    bottom: 0;
+    right: 0;
+}
+
+/* Flipping horizontal (y) untuk ornament di kanan atas dan kiri bawah */
+.ornament-corner-flipped {
+    transform: scaleX(-1);
+}
+
+/* Flipping vertical (y) untuk ornament di kanan bawah */
+.ornament-corner-flipped-y {
+    transform: scaleY(-1);
+}
+
+/* Flipping both axes untuk sudut kanan bawah */
+.ornament-corner-flipped-both {
+    transform: scale(-1, -1);
+}
+
+/* Style dasar untuk ornament */
+.ornament-corner {
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+/* Extra styling for responsive design */
+@media (max-width: 768px) {
+    .ornament, .ornament-corner-wrapper {
+        width: 50px; /* Ukuran ornament lebih kecil untuk perangkat mobile */
+        height: 50px;
+    }
+}
