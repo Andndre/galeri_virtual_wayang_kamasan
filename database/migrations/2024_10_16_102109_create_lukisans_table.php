@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->integer('price');
             $table->string('image');
-            $table->foreignId('id_creator')->constrained('users');
+            $table->foreignId('id_creator')->constrained('users')->onDelete('cascade');
         });
     }
 

@@ -25,6 +25,9 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/', [App\Http\Controllers\AdminController::class, 'pelukis'])->name('pelukis.index');
         Route::get('/create', [App\Http\Controllers\AdminController::class, 'pelukisCreate'])->name('pelukis.create');
         Route::post('/store', [App\Http\Controllers\AdminController::class, 'pelukisStore'])->name('pelukis.store');
+        Route::get('/edit/{id}', [App\Http\Controllers\AdminController::class, 'pelukisEdit'])->name('pelukis.edit');
+        Route::put('/update/{id}', [App\Http\Controllers\AdminController::class, 'pelukisUpdate'])->name('pelukis.update');
+        Route::delete('/destroy/{id}', [App\Http\Controllers\AdminController::class, 'pelukisDestroy'])->name('pelukis.destroy');
     });
 });
 
