@@ -5,7 +5,7 @@
     <img class="w-6/8 max-w-80 mt-24" src="{{ asset('assets/img/guest/text-logo.png') }}" alt="">
     <a href="{{ route('guest.pelukis.index') }}" class="flex justify-center items-center relative">
         <img class="w-6/8 max-w-80" src="{{ asset('assets/img/guest/btn-home.png') }}" alt="Welcome">
-        <p class="absolute font-joti text-xl text-light w-44 mt-[-.4rem]">{{__('app.gallery_button')}}</p>
+        <p class="absolute font-joti text-center text-xl text-light w-44 mt-[-.4rem]">{{__('app.gallery_button')}}</p>
     </a>
     <div class="flex justify-between mb-12 px-12 w-full">
         <div class="flex gap-2">
