@@ -42,6 +42,12 @@
                 ],
             ]
         ],
+        [
+            'label' => 'Profil',
+            'url' => route('pelukis.profile.index'),
+            'icon' => 'bx bx-user',
+            'route_is' => 'pelukis.profile.index'
+        ],
     ]"
     brandName="MyBrand"
     brandUrl="{{ route('pelukis.home') }}"

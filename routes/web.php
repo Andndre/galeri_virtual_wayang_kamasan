@@ -43,4 +43,8 @@ Route::group(['prefix' => 'pelukis'], function() {
         Route::get('/create', [App\Http\Controllers\PelukisController::class, 'lukisanArCreate'])->name('pelukis.lukisanAr.create');
         Route::post('/store', [App\Http\Controllers\PelukisController::class, 'lukisanArStore'])->name('pelukis.lukisanAr.store');
     });
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', [App\Http\Controllers\PelukisController::class, 'profile'])->name('pelukis.profile.index');
+        Route::put('/update', [App\Http\Controllers\PelukisController::class, 'profileUpdate'])->name('pelukis.profile.update');
+    });
 });

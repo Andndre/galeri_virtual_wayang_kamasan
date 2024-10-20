@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
         'is_pelukis' => \App\Http\Middleware\IsPelukis::class,
+        'set_language_id' => \App\Http\Middleware\SetLanguageId::class
     ];
 }

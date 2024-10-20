@@ -15867,6 +15867,11 @@ html:not(.layout-footer-fixed) .content-wrapper {
   right: 6px;
 }
 
+.avatar-xxxl {
+    width: 6.5rem;
+    height: 6.5rem;
+}
+
 .avatar-group .avatar {
   transition: all 0.25s ease;
 }
