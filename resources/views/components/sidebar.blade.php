@@ -12,7 +12,7 @@
 
     <ul class="menu-inner py-1">
         @foreach ($menuItems as $menuItem)
-            <li class="menu-item {{ Route::is($menuItem['route_is']) ? (!empty($menuItem['submenu']) ? 'open' : 'active') : '' }}">
+            <li class="menu-item {{ Route::is($menuItem['route_is']) ? (!empty($menuItem['submenu']) ? 'open active' : 'active') : '' }}">
                 <a href="{{ $menuItem['url'] }}" class="menu-link {{ !empty($menuItem['submenu']) ? 'menu-toggle' : ''}}">
                     <i class="menu-icon tf-icons {{ $menuItem['icon'] }}"></i>
                     <div data-i18n="{{ $menuItem['label'] }}">{{ $menuItem['label'] }}</div>
