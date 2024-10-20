@@ -54,6 +54,10 @@
   border-radius: 0.4rem;
 }
 
+.object-fit-cover {
+    object-fit: cover;
+}
+
 *,
 *::before,
 *::after {

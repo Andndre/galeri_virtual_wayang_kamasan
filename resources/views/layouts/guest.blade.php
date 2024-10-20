@@ -20,6 +20,8 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        @yield('css')
+
         <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
     </head>
     <body class="relative bg-no-repeat bg-center h-[100dvh] bg-cover"
@@ -117,5 +119,7 @@
                 }, 1000);
             }, 3000);
         </script> --}}
+
+        @yield('js')
     </body>
 </html>

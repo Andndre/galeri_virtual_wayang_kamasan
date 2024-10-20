@@ -13,7 +13,7 @@ class GuestController extends Controller
     }
 
     public function pelukisIndex() {
-        $daftarPelukis = User::all()->where('is_admin', 0);
-        return view('guest.pelukis-index', compact('daftarPelukis'));
+        $pelukis = User::all()->where('is_admin', 0);
+        return view('guest.pelukis-index', compact('pelukis'));
     }
 }

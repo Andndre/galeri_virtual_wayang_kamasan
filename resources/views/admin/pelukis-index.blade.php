@@ -35,7 +35,7 @@
                                             onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Akun Ini? Data Akun Akan Terhapus Permanen')">Hapus</button>
                                     </form>
                                 </td>
-                                <td><img class="avatar avatar-sm rounded-circle"
+                                <td><img class="avatar avatar-sm rounded-circle object-fit-cover"
                                         src="{{ Storage::url($p->profile_picture) }}" alt="profile picture"></td>
                                 <td>{{ $p->name }}</td>
                                 <td>{{ $p->email }}</td>
