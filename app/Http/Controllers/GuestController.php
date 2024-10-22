@@ -16,4 +16,13 @@ class GuestController extends Controller
         $pelukis = User::all()->where('is_admin', 0);
         return view('guest.pelukis-index', compact('pelukis'));
     }
+
+    public function pelukisDetail($id) {
+        $pelukis = User::find($id);
+        return view('guest.pelukis-detail', compact('pelukis'));
+    }
+
+    public function pelukisAr() {
+        return view('guest.pelukis-ar');
+    }
 }
