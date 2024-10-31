@@ -67,6 +67,7 @@
     <script>
         var ruanganFile = "{{ asset('assets/ruangan.glb ') }}";
     </script>
+    @yield('lukisans')
     <script type="module" src="{{ asset('assets/js/ar-main.js') }}"></script>
 </body>
 

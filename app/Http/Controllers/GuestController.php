@@ -14,15 +14,27 @@ class GuestController extends Controller
 
     public function pelukisIndex() {
         $pelukis = User::all()->where('is_admin', 0);
+        if (is_null($pelukis)) {
+            abort(404);
+        }
         return view('guest.pelukis-index', compact('pelukis'));
     }
 
     public function pelukisDetail($id) {
-        $pelukis = User::find($id);
+        $pelukis = User::find($id)->where('is_admin', 0);
+        if (is_null($pelukis)) {
+            abort(404);
+        }
         return view('guest.pelukis-detail', compact('pelukis'));
     }
 
-    public function pelukisAr() {
-        return view('guest.pelukis-ar');
+    public function pelukisAr($id) {
+        $pelukis = User::query()->where('id', $id)->where('is_admin', 0)->first();
+        if (is_null($pelukis)) {
+            abort(404);
+        }
+        $lukisans = $pelukis->lukisansAr;
+        dd($lukisans);
+        return view('guest.pelukis-ar', compact('pelukis', 'lukisans'));
     }
 }

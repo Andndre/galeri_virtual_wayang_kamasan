@@ -53,4 +53,8 @@ class User extends Authenticatable
     public function lukisans() {
         return $this->hasMany(Lukisan::class, 'id_creator', 'id');
     }
+
+    public function lukisansAr() {
+        return $this->hasMany(LukisanAr::class, 'id_creator', 'id');
+    }
  }

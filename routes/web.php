@@ -8,7 +8,7 @@ Route::group(['prefix' => '/'], function() {
     Route::get('/', [App\Http\Controllers\GuestController::class, 'index'])->name('home-page');
     Route::get('/daftar-pelukis', [App\Http\Controllers\GuestController::class, 'pelukisIndex'])->name('guest.pelukis.index');
     Route::get('/pelukis-detail/{id}', [App\Http\Controllers\GuestController::class, 'pelukisDetail'])->name('guest.pelukis.detail');
-    Route::get('/pelukis-ar', [App\Http\Controllers\GuestController::class, 'pelukisAr'])->name('guest.pelukis-ar.index');
+    Route::get('/pelukis-ar/{id}', [App\Http\Controllers\GuestController::class, 'pelukisAr'])->name('guest.pelukis-ar.index');
 });
 
 Route::get('/change-language/{lang}', function (string $lang) {
