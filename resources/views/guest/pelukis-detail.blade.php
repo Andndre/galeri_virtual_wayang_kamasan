@@ -19,7 +19,7 @@
             </div>
             <div class="mx-auto mt-4">
                 {{-- button to AR Portal --}}
-                <a href="{{ $pelukis->ar_portal }}" class="bg-marun text-white px-12 py-2 rounded-full text-center font-joti border-4 border-black">
+                <a href="{{ route('guest.pelukis-ar.index', $pelukis->id) }}" class="bg-marun text-white px-12 py-2 rounded-full text-center font-joti border-4 border-black">
                     AR Portal
                 </a>
             </div>

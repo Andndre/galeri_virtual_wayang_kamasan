@@ -21,10 +21,11 @@ class GuestController extends Controller
     }
 
     public function pelukisDetail($id) {
-        $pelukis = User::find($id)->where('is_admin', 0);
+        $pelukis = User::find($id)->where('is_admin', 0)->first();
         if (is_null($pelukis)) {
             abort(404);
         }
+
         return view('guest.pelukis-detail', compact('pelukis'));
     }
 
@@ -34,7 +35,6 @@ class GuestController extends Controller
             abort(404);
         }
         $lukisans = $pelukis->lukisansAr;
-        dd($lukisans);
         return view('guest.pelukis-ar', compact('pelukis', 'lukisans'));
     }
 }
