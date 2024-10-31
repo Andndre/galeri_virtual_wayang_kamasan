@@ -2,8 +2,10 @@
 
 @section('lukisans')
 <script>
-    @foreach ($lukisans as $lukisan)
-        var lukisan{{ $loop->iteration }} = "{{ asset('storage/' . $lukisan->image) }}";
-    @endforeach
+    var lukisans = [
+        @foreach ($lukisans as $lukisan)
+            "{{ asset('storage/' . $lukisan->image) }}",
+        @endforeach
+    ]
 </script>
 @endsection

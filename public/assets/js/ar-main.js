@@ -294,6 +294,26 @@ async function main() {
     mask.material.colorWrite = false;
     mask.renderOrder = -1;
 
+    const planes = [
+        'lukisan-1',
+        'lukisan-2',
+        'lukisan-3',
+        'lukisan-4',
+        'lukisan-5',
+    ]
+
+    console.log(lukisans);
+
+    for (let i = 0; i < lukisans.length; i++) {
+        const lukisan = lukisans[i];
+        const plane = model.getObjectByName(planes[i]);
+        const textureLoader = new THREE.TextureLoader();
+        const texture = await textureLoader.loadAsync(lukisan);
+        const aspectRatio = texture.image.width / texture.image.height;
+        plane.scale.set(1, aspectRatio, 1);
+        plane.material.map = texture;
+    }
+
     sceneManager.setOnSelect((matrix) => {
         console.log("On Select");
         matrix.decompose(model.position, model.quaternion, model.scale);
