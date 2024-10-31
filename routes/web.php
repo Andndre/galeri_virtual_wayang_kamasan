@@ -39,11 +39,17 @@ Route::group(['prefix' => 'pelukis'], function() {
         Route::get('/', [App\Http\Controllers\PelukisController::class, 'lukisan'])->name('pelukis.lukisan.index');
         Route::get('/create', [App\Http\Controllers\PelukisController::class, 'lukisanCreate'])->name('pelukis.lukisan.create');
         Route::post('/store', [App\Http\Controllers\PelukisController::class, 'lukisanStore'])->name('pelukis.lukisan.store');
+        Route::get('/edit/{id}', [App\Http\Controllers\PelukisController::class, 'lukisanEdit'])->name('pelukis.lukisan.edit');
+        Route::put('/update/{id}', [App\Http\Controllers\PelukisController::class, 'lukisanUpdate'])->name('pelukis.lukisan.update');
+        Route::delete('/destroy/{id}', [App\Http\Controllers\PelukisController::class, 'lukisanDestroy'])->name('pelukis.lukisan.destroy');
     });
     Route::group(['prefix' => 'lukisan-ar'], function () {
         Route::get('/', [App\Http\Controllers\PelukisController::class, 'lukisanAr'])->name('pelukis.lukisanAr.index');
         Route::get('/create', [App\Http\Controllers\PelukisController::class, 'lukisanArCreate'])->name('pelukis.lukisanAr.create');
         Route::post('/store', [App\Http\Controllers\PelukisController::class, 'lukisanArStore'])->name('pelukis.lukisanAr.store');
+        Route::get('/edit/{id}', [App\Http\Controllers\PelukisController::class, 'lukisanArEdit'])->name('pelukis.lukisanAr.edit');
+        Route::put('/update/{id}', [App\Http\Controllers\PelukisController::class, 'lukisanArUpdate'])->name('pelukis.lukisanAr.update');
+        Route::delete('/destroy/{id}', [App\Http\Controllers\PelukisController::class, 'lukisanArDestroy'])->name('pelukis.lukisanAr.destroy');
     });
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', [App\Http\Controllers\PelukisController::class, 'profile'])->name('pelukis.profile.index');
