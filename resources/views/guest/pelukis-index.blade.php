@@ -1,5 +1,9 @@
 @extends('layouts.guest')
 
+@section('overlay')
+    <x-absolute.overlay-guest-home />
+@endsection
+
 @section('main')
 <div class="flex flex-col gap-3 justify-center items-center h-[100vh] w-full">
     <img class="w-6/8 max-w-80 mt-24" src="{{ asset('assets/img/guest/text-logo.png') }}" alt="">

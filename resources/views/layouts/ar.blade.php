@@ -59,6 +59,9 @@
             </p>
             <div id="qr-code"></div>
         </div>
+        <div id="loading-container">
+            <div id="loading-bar"></div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
     <script>

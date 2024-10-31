@@ -127,3 +127,26 @@ canvas {
 .xr-button-overlay {
     z-index: 100 !important;
 }
+
+
+#loading-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    background-color: #ccc;
+    height: 10px;
+    display: none;
+    border-radius: 10px;
+    max-width: 400px;
+  }
+
+  #loading-bar {
+    width: 0;
+    height: 100%;
+    background-color: #e38d58;
+    transition: width 0.2s;
+    border-radius: 10px;
+    max-width: 400px;
+  }

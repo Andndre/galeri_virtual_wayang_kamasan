@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/jsm/loaders/DRACOLoader.js";
 import { ARButton } from "three/jsm/webxr/ARButton.js";
 
 async function generateQRCode(text) {
@@ -12,14 +13,13 @@ async function generateQRCode(text) {
     //     },
     // });
     var qrcode = new QRCode("qr-code", {
-	    text: text,
-	    width: 128,
-	    height: 128,
-	    colorDark : "#000000",
-	    colorLight : "#ffffff",
-	    correctLevel : QRCode.CorrectLevel.H
-	});
-
+        text: text,
+        width: 128,
+        height: 128,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+    });
 }
 
 async function generateLaunchCode() {
@@ -65,7 +65,7 @@ class SceneManager {
             70,
             window.innerWidth / window.innerHeight,
             0.01,
-            20
+            999
         );
         this.reticle = new THREE.Mesh(
             new THREE.RingGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2),
@@ -218,6 +218,7 @@ class RendererManager {
 // Kelas yang mengelola pemuatan model 3D
 class ModelLoader {
     static loader = new GLTFLoader();
+    static dracoLoader = new DRACOLoader();
     /**
      * A callback function type for tracking loading progress.
      * @callback OnProgress
@@ -231,6 +232,11 @@ class ModelLoader {
      * @returns
      */
     static async loadModel(name, onProgress) {
+        this.dracoLoader.setDecoderConfig({ type: "js" });
+        this.dracoLoader.setDecoderPath(
+            "https://www.gstatic.com/draco/v1/decoders/"
+        );
+        this.loader.setDRACOLoader(this.dracoLoader);
         const model = await this.loader.loadAsync(name, onProgress);
         return model.scenes[0];
     }
@@ -261,10 +267,14 @@ async function main() {
     document.getElementById("ar-not-supported").style.display = "none";
     const rendererManager = new RendererManager();
     const sceneManager = new SceneManager(rendererManager.renderer);
-    new UIManager(rendererManager.renderer);
-    const model = await ModelLoader.loadModel(ruanganFile, (event) =>
-        console.log(event)
-    );
+    const model = await ModelLoader.loadModel(ruanganFile, (event) => {
+        const progress = (event.loaded / event.total) * 100;
+        document.getElementById("loading-container").style.display = "block";
+        document.getElementById("loading-bar").style.width = `${progress}%`;
+        if (progress === 100) {
+            new UIManager(rendererManager.renderer);
+        }
+    });
     sceneManager.scene.add(model);
     model.scale.set(0.01, 0.01, 0.01);
     model.visible = false;
@@ -277,14 +287,12 @@ async function main() {
     //   const texture = await textureLoader.loadAsync(
     //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm45qizIw2qxQdjG-vznRK0W4HmW6cWgu9oQ&s",
     //   );
-    //   const aspectRatio = texture.image.width / texture.image.height;
+//   const aspectRatio = texture.iage.width / texture.image.height;
     //   plane.scale.set(1, aspectRatio, 1);
     //   plane.material.map = texture;
     const mask = model.getObjectByName("mask");
     mask.material.colorWrite = false;
     mask.renderOrder = -1;
-
-    console.log(mask);
 
     sceneManager.setOnSelect((matrix) => {
         console.log("On Select");

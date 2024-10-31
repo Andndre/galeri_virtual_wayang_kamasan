@@ -11,7 +11,6 @@ export default {
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
                 joti: ["Joti One", "cursive"],
-                satoshi: ["Satoshi", "sans-serif"],
             },
             colors: {
                 bg: "#FFF3DB",
