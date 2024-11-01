@@ -278,18 +278,6 @@ async function main() {
     sceneManager.scene.add(model);
     model.scale.set(0.01, 0.01, 0.01);
     model.visible = false;
-    console.log(model);
-    //   const plane = model.getObjectByName("plane");
-    //   const tembok = model.getObjectByName("tembok");
-    //   // double sided
-    //   tembok.material.side = THREE.DoubleSide;
-    //   const textureLoader = new THREE.TextureLoader();
-    //   const texture = await textureLoader.loadAsync(
-    //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm45qizIw2qxQdjG-vznRK0W4HmW6cWgu9oQ&s",
-    //   );
-//   const aspectRatio = texture.iage.width / texture.image.height;
-    //   plane.scale.set(1, aspectRatio, 1);
-    //   plane.material.map = texture;
     const mask = model.getObjectByName("mask");
     mask.material.colorWrite = false;
     mask.renderOrder = -1;
@@ -306,11 +294,10 @@ async function main() {
 
     for (let i = 0; i < lukisans.length; i++) {
         const lukisan = lukisans[i];
+        console.log(lukisan);
         const plane = model.getObjectByName(planes[i]);
         const textureLoader = new THREE.TextureLoader();
         const texture = await textureLoader.loadAsync(lukisan);
-        const aspectRatio = texture.image.width / texture.image.height;
-        plane.scale.set(1, aspectRatio, 1);
         plane.material.map = texture;
     }
 
