@@ -250,7 +250,7 @@ async function main() {
         document.getElementById("loading-bar").style.width = `${progress}%`;
         if (progress === 100) {
             document.body.appendChild(
-                ARButton.createButton(renderer, {
+                ARButton.createButton(rendererManager.renderer, {
                     requiredFeatures: ["local", "hit-test", "dom-overlay"],
                     domOverlay: { root: document.querySelector("#overlay") },
                 })
