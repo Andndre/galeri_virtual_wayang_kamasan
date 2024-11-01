@@ -49,8 +49,7 @@
         <h2>Galeri Virtual @yield('nama.pelukis')</h2>
         <div id="ar-not-supported">
             <p>
-                WebXR Not Supported. Open this page on iOS or Android to view the
-                example.
+                Teknologi WebXR tidak didukung di perangkat Anda.
             </p>
             <p>
                 For documentation & support, visit
