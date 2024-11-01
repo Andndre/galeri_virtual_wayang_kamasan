@@ -9,3 +9,7 @@
     ]
 </script>
 @endsection
+
+@section('nama.pelukis')
+    {{ $pelukis->name }}
+@endsection

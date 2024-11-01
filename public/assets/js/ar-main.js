@@ -4,15 +4,7 @@ import { DRACOLoader } from "three/jsm/loaders/DRACOLoader.js";
 import { ARButton } from "three/jsm/webxr/ARButton.js";
 
 async function generateQRCode(text) {
-    //apply to #qr-code
-    // document.getElementById("qr-code").src = await QRCode.toDataURL(text, {
-    //     margin: 2,
-    //     color: {
-    //         dark: "#fe007d",
-    //         light: "#FFFFFF",
-    //     },
-    // });
-    var qrcode = new QRCode("qr-code", {
+    new QRCode("qr-code", {
         text: text,
         width: 128,
         height: 128,
@@ -24,8 +16,6 @@ async function generateQRCode(text) {
 
 async function generateLaunchCode() {
     let url = await VLaunch.getLaunchUrl(window.location.href);
-
-    console.log(url);
 
     await generateQRCode(url);
     console.log("Launch Code Generated");
@@ -242,19 +232,6 @@ class ModelLoader {
     }
 }
 
-// Kelas yang mengelola UI dan tombol AR
-class UIManager {
-    constructor(renderer) {
-        // Mengatur tombol AR langsung di constructor
-        document.body.appendChild(
-            ARButton.createButton(renderer, {
-                requiredFeatures: ["local", "hit-test", "dom-overlay"],
-                domOverlay: { root: document.querySelector("#overlay") },
-            })
-        );
-    }
-}
-
 // Fungsi utama untuk menjalankan aplikasi
 async function main() {
     const ARSupported = await checkXRSupport();
@@ -272,7 +249,12 @@ async function main() {
         document.getElementById("loading-container").style.display = "block";
         document.getElementById("loading-bar").style.width = `${progress}%`;
         if (progress === 100) {
-            new UIManager(rendererManager.renderer);
+            document.body.appendChild(
+                ARButton.createButton(renderer, {
+                    requiredFeatures: ["local", "hit-test", "dom-overlay"],
+                    domOverlay: { root: document.querySelector("#overlay") },
+                })
+            );
         }
     });
     sceneManager.scene.add(model);
@@ -283,18 +265,15 @@ async function main() {
     mask.renderOrder = -1;
 
     const planes = [
-        'lukisan-1',
+        'lukisan-demo',
         'lukisan-2',
         'lukisan-3',
         'lukisan-4',
         'lukisan-5',
     ]
 
-    console.log(lukisans);
-
     for (let i = 0; i < lukisans.length; i++) {
         const lukisan = lukisans[i];
-        console.log(lukisan);
         const plane = model.getObjectByName(planes[i]);
         const textureLoader = new THREE.TextureLoader();
         const texture = await textureLoader.loadAsync(lukisan);
@@ -302,9 +281,7 @@ async function main() {
     }
 
     sceneManager.setOnSelect((matrix) => {
-        console.log("On Select");
         matrix.decompose(model.position, model.quaternion, model.scale);
-        // rotate the ruangan to face the sceneManager.camera (y-axis)
         const camera = sceneManager.camera;
         const target = new THREE.Vector3();
         camera.getWorldPosition(target);

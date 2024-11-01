@@ -65,6 +65,7 @@ h1 {
     right: 0;
     bottom: 0;
     z-index: 15;
+    gap: 1rem;
 }
 
 @keyframes circle {
@@ -130,10 +131,6 @@ canvas {
 
 
 #loading-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 80%;
     background-color: #ccc;
     height: 10px;

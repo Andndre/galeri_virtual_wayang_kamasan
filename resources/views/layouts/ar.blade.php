@@ -33,7 +33,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700&display=swap"
         rel="stylesheet" />
 
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -43,11 +42,11 @@
 <body>
     <div id="overlay">
         <div id="tracking-prompt"><img src="{{ asset('assets/img/ar/hand.png') }}" /></div>
-        <div id="instructions">Tap to grow</div>
+        <div id="instructions">Tekan untuk memunculkan ruangan</div>
     </div>
     <div id="app">
-        <a href="https://launch.variant3d.com"><img id="variant-logo" alt="WebXR on iOS" src="favicon.ico" /></a>
-        <h2>Start AR</h2>
+        <a href="#"><img id="variant-logo" alt="Logo" src="{{ asset('assets/img/logo/text-logo.png') }}" /></a>
+        <h2>Galeri Virtual @yield('nama.pelukis')</h2>
         <div id="ar-not-supported">
             <p>
                 WebXR Not Supported. Open this page on iOS or Android to view the
