@@ -67,6 +67,11 @@ class PelukisController extends Controller
 
     public function lukisanUpdate(EditLukisan $request, $id) {
         $input = $request->validated();
+        $lukisan = Lukisan::find($id);
+
+        if (!$lukisan) {
+            return redirect()->back()->with('error', 'lukisan tidak ditemukan');
+        }
 
         if ($request->has('image')) {
             // $input['image'] = $request->file('image')->store('lukisan', 'public');
@@ -75,7 +80,6 @@ class PelukisController extends Controller
             $input['image'] = '/lukisan/' . $fileName;
         }
 
-        $lukisan = Lukisan::find($id);
         $lukisan->update($input);
         return redirect()->back()->with('success', 'lukisan berhasil diupdate');
     }
