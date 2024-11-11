@@ -34,7 +34,7 @@
                         @foreach ($pelukis->lukisans as $lukisan)
                             <div class="bg-white">
                                 <div class="relative">
-                                    <img class="aspect-[6/4] object-cover object-center w-full" src="{{ asset('storage/'.$lukisan->image) }}" alt="">
+                                    <img class="aspect-[6/4] object-cover object-center w-full" src="{{ $lukisan->image }}" alt="">
                                     {{-- text harga di pojok kiri bawah gambar --}}
                                     <div class="absolute bottom-0 left-0 px-2 py-1 bg-white/90">
                                         <p class="text-lg font-bold">{{ 'Rp. ' . number_format($lukisan->price, 0, ',', '.') }}</p>
