@@ -131,6 +131,11 @@ class PelukisController extends Controller
 
     public function lukisanArUpdate(EditLukisanAr $request, $id) {
         $input = $request->validated();
+        $lukisan = LukisanAr::find($id);
+
+        if (!$lukisan) {
+            return redirect()->back()->with('error', 'lukisan tidak ditemukan');
+        }
 
         if ($request->has('image')) {
             $fileName = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
@@ -138,7 +143,6 @@ class PelukisController extends Controller
             $input['lukisan'] = '/lukisan/' . $fileName;
         }
 
-        $lukisan = LukisanAr::find($id);
         $lukisan->update($input);
         return redirect()->back()->with('success', 'lukisan berhasil diupdate');
     }
