@@ -47,7 +47,10 @@ class PelukisController extends Controller
         $user = User::query()->where('id', auth()->user()->id)->first();
 
         if ($request->has('image')) {
-            $input['image'] = $request->file('image')->store('lukisan', 'public');
+            // $input['image'] = $request->file('image')->store('lukisan', 'public');
+            $fileName = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('lukisan'), $fileName);
+            $input['image'] = '/lukisan/' . $fileName;
         } else {
             return redirect()->back()->with('error', 'lukisan tidak boleh kosong');
         }
@@ -66,7 +69,10 @@ class PelukisController extends Controller
         $input = $request->validated();
 
         if ($request->has('image')) {
-            $input['image'] = $request->file('image')->store('lukisan', 'public');
+            // $input['image'] = $request->file('image')->store('lukisan', 'public');
+            $fileName = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('lukisan'), $fileName);
+            $input['image'] = '/lukisan/' . $fileName;
         }
 
         $lukisan = Lukisan::find($id);
