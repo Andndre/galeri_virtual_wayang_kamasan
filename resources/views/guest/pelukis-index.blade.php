@@ -12,7 +12,7 @@
         <div class="flex transition-transform duration-300 ease-in-out" id="carousel">
             @foreach ($pelukis as $p)
                 <div class="flex-shrink-0 w-72 flex flex-col items-center gap-3">
-                    <img class="w-full h-auto object-cover aspect-square rounded-lg" src="{{ asset('storage/'.$p->profile_picture) }}" alt="{{ $p->name }}">
+                    <img class="w-full h-auto object-cover aspect-square rounded-lg" src="{{ $p->profile_picture }}" alt="{{ $p->name }}">
                     <a href="{{ route('guest.pelukis.detail', $p->id) }}" class="bg-marun text-white px-12 py-2 rounded-full text-center font-joti border-4 border-black">
                         {{ $p->name }}
                     </a>

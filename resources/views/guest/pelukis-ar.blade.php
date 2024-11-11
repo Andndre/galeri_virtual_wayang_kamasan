@@ -5,7 +5,7 @@
     var lukisans = [
         @foreach ($lukisans as $lukisan)
         {
-            image: "{{ asset('storage/' . $lukisan->image) }}",
+            image: "{{ $lukisan->image }}",
             title: "{{ $lukisan->title }}",
             description: "{{ $lukisan->description }}"
         },
