@@ -63,7 +63,7 @@
     </div>
     {{-- modal deskripsi lukisan --}}
     @foreach ($lukisans as $i => $lukisan)
-        <div id="modal-{{ $i }}" class="fixed inset-0 z-50 overflow-y-auto bg-black/85 " tabindex="-1" aria-labelledby="modal-{{ $i }}" aria-hidden="true">
+        <div id="modal-{{ $i }}" class="fixed inset-0 z-50 overflow-y-auto bg-black/85 hidden" tabindex="-1" aria-labelledby="modal-{{ $i }}" aria-hidden="true">
             <div class="flex flex-col justify-center items-center h-full w-full animate-pop">
                 {{-- <img class="w-6/8 max-w-80" src="{{ asset('storage/' . $lukisan->image) }}" alt="{{ $lukisan->title }}" />
                 <div class="bg-marun text-white px-6 py-2 rounded-full border-black border-[4px] text-center w-[80%] max-w-96">
