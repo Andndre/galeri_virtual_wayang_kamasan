@@ -15,6 +15,11 @@
                     <div class="form-text">Inputkan judul lukisan</div>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label" for="description" required>Deskripsi <span class="text-danger">*</span></label>
+                    <textarea name="description" class="form-control" id="description" rows="3" placeholder="Deskripsi Lukisan"></textarea>
+                    <div class="form-text">Inputkan deskripsi lukisan</div>
+                </div>
+                <div class="mb-3">
                     <label class="form-label" for="profile_picture">Gambar Lukisan</label>
                     <input name="image" type="file" id="image" class="form-control" onchange="previewImage(event)">
                     <div class="mt-3">

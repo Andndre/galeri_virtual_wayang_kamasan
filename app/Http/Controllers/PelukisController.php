@@ -87,6 +87,11 @@ class PelukisController extends Controller
     }
 
     public function lukisanArCreate() {
+        $user = auth()->user();
+        $lukisanCount = LukisanAr::all()->where('id_creator', $user->id)->count();
+        if ($lukisanCount == 5) {
+            return redirect()->back()->with('error', 'anda hanya bisa membuat 5 lukisan AR. silakan hapus salah satu atau ubah lukisan yang sudah ada');
+        }
         return view('pelukis.lukisan-ar-create');
     }
 
@@ -96,6 +101,12 @@ class PelukisController extends Controller
     }
 
     public function lukisanArStore(CreateLukisanAr $request) {
+        $user = auth()->user();
+        $lukisanCount = LukisanAr::all()->where('id_creator', $user->id)->count();
+        if ($lukisanCount == 5) {
+            return redirect()->back()->with('error', 'anda hanya bisa membuat 5 lukisan AR. silakan hapus salah satu atau ubah lukisan yang sudah ada');
+        }
+
         $input = $request->validated();
 
         if ($request->has('image')) {
@@ -107,7 +118,7 @@ class PelukisController extends Controller
         $user = User::query()->where('id', auth()->user()->id)->first();
         $user->lukisansAr()->create($input);
 
-        return redirect()->back()->with('success', 'lukisan berhasil disimpan');
+        return redirect()->route('pelukis.lukisanAr.index')->with('success', 'lukisan berhasil disimpan');
     }
 
     public function lukisanArUpdate(EditLukisanAr $request, $id) {

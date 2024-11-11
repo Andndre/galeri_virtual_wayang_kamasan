@@ -24,6 +24,7 @@ class CreateLukisanAr extends FormRequest
         return [
             'title' => ['string', 'required'],
             'image' => ['image', 'required'],
+            'description' => ['string', 'required'],
         ];
     }
 }

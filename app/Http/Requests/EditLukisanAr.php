@@ -24,6 +24,7 @@ class EditLukisanAr extends FormRequest
         return [
             'title' => ['string', 'required'],
             'image' => ['image', 'nullable'],
+            'description' => ['string', 'required'],
         ];
     }
 }
