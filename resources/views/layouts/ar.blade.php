@@ -59,12 +59,9 @@
         </div>
         <div id="loading-container">
             <div id="loading-bar"></div>
-        </div>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
-    <script>
-        var ruanganFile = "{{ asset('assets/ruangan.glb ') }}";
-    </script>
     @yield('lukisans')
     <script type="module" src="{{ asset('assets/js/ar-main.js') }}"></script>
 </body>
