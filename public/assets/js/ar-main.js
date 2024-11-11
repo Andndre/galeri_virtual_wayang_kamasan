@@ -65,7 +65,7 @@ function onClick(event, camera, scene) {
 
     if (planes.includes(intersectedObject.name)) {
       console.log('Object clicked:', intersectedObject);
-    //   TODO: Display popup
+      document.getElementById("modal-" + planes.indexOf(intersectedObject.name)).style.display = "block";
     }
   }
 }
@@ -294,7 +294,7 @@ async function main() {
     const plane = model.getObjectByName(planes[i]);
     planesObject.push(plane);
     const textureLoader = new THREE.TextureLoader();
-    const texture = await textureLoader.loadAsync(lukisans[i]);
+    const texture = await textureLoader.loadAsync(lukisans[i].image);
     if (plane) {
       console.log("Event assigned")
       plane.material.transparent = false;

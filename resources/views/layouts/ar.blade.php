@@ -61,6 +61,29 @@
             <div id="loading-bar"></div>
     </div>
     </div>
+    {{-- modal deskripsi lukisan --}}
+    @foreach ($lukisans as $i => $lukisan)
+        <div id="modal-{{ $i }}" class="fixed inset-0 z-50 overflow-y-auto bg-black/85 " tabindex="-1" aria-labelledby="modal-{{ $i }}" aria-hidden="true">
+            <div class="flex flex-col justify-center items-center h-full w-full animate-pop">
+                {{-- <img class="w-6/8 max-w-80" src="{{ asset('storage/' . $lukisan->image) }}" alt="{{ $lukisan->title }}" />
+                <div class="bg-marun text-white px-6 py-2 rounded-full border-black border-[4px] text-center w-[80%] max-w-96">
+                    <h2 class="text-lg font-joti">{{ $lukisan->title }}</h2>
+                </div> --}}
+                <div class="bg-marun text-white px-6 py-2 rounded-full border-black border-[4px] text-center w-[80%] max-w-96">
+                    <p>{{ $lukisan->description }}</p>
+                </div>
+                <button id="close-{{$i}}" class="mt-3 bg-marun font-joti text-white px-6 py-3 rounded-full border-black border-[4px]" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    &times;
+                </button>
+                <script>
+                    document.getElementById('close-{{$i}}').addEventListener('click', function() {
+                        document.getElementById('modal-{{ $i }}').style.display = 'none';
+                    });
+                </script>
+            </div>
+        </div>
+    @endforeach
     <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
     @yield('lukisans')
     <script type="module" src="{{ asset('assets/js/ar-main.js') }}"></script>
