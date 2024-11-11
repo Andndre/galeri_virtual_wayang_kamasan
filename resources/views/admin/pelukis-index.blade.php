@@ -36,7 +36,7 @@
                                     </form>
                                 </td>
                                 <td><img class="avatar avatar-sm rounded-circle object-fit-cover"
-                                        src="{{ Storage::url($p->profile_picture) }}" alt="profile picture"></td>
+                                        src="{{ $p->profile_picture }}" alt="profile picture"></td>
                                 <td>{{ $p->name }}</td>
                                 <td>{{ $p->email }}</td>
                             </tr>

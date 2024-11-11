@@ -49,7 +49,9 @@ class AdminController extends Controller
         $input = $request->validated();
 
         if ($request->has('profile_picture')) {
-            $input['profile_picture'] = $request->file('profile_picture')->store('profile_picture', 'public');
+            $fileName = time() . '_' . uniqid() . '.' . $request->file('profile_picture')->getClientOriginalExtension();
+            $request->file('profile_picture')->move(public_path('profile_picture'), $fileName);
+            $input['profile_picture'] = '/profile_picture/' . $fileName;
         }
 
         $input['password_raw'] = $input['password'];
@@ -70,7 +72,9 @@ class AdminController extends Controller
         $input = $request->validated();
 
         if ($request->has('profile_picture')) {
-            $input['profile_picture'] = $request->file('profile_picture')->store('profile_picture', 'public');
+            $fileName = time() . '_' . uniqid() . '.' . $request->file('profile_picture')->getClientOriginalExtension();
+            $request->file('profile_picture')->move(public_path('profile_picture'), $fileName);
+            $input['profile_picture'] = '/profile_picture/' . $fileName;
         }
 
         if ($request->has('password')) {

@@ -22,7 +22,7 @@
                     <label class="form-label" for="profile_picture">Gambar Lukisan</label>
                     <input name="image" type="file" id="image" class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
                     <div class="mt-3">
-                        <img id="image_preview" src="{{ Storage::url($lukisan->image) }}" alt="Preview" style="max-width: 150px;" />
+                        <img id="image_preview" src="{{ $lukisan->image }}" alt="Preview" style="max-width: 150px;" />
                     </div>
                     @error('image')
                         <div class="invalid-feedback">{{ $message }}</div>

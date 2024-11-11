@@ -38,7 +38,7 @@
                     <label class="form-label" for="profile_picture">Foto Profil</label>
                     <input name="profile_picture" type="file" id="profile_picture" class="form-control" onchange="previewImage(event)">
                     <div class="mt-3">
-                        <img id="profile_picture_preview" src="{{ Storage::url($pelukis->profile_picture) }}" alt="Preview" style="max-width: 150px; {{ $pelukis->profile_picture ? 'display: block;' : 'display: none;' }}" />
+                        <img id="profile_picture_preview" src="{{ $pelukis->profile_picture }}" alt="Preview" style="max-width: 150px; {{ $pelukis->profile_picture ? 'display: block;' : 'display: none;' }}" />
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
