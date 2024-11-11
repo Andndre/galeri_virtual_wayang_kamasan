@@ -122,7 +122,7 @@ class PelukisController extends Controller
         if ($request->has('image')) {
             $fileName = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->move(public_path('lukisan'), $fileName);
-            $input['lukisan'] = '/lukisan/' . $fileName;
+            $input['image'] = '/lukisan/' . $fileName;
         } else {
             return redirect()->back()->with('error', 'lukisan tidak boleh kosong');
         }
@@ -144,7 +144,7 @@ class PelukisController extends Controller
         if ($request->has('image')) {
             $fileName = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->move(public_path('lukisan'), $fileName);
-            $input['lukisan'] = '/lukisan/' . $fileName;
+            $input['image'] = '/lukisan/' . $fileName;
         }
 
         $lukisan->update($input);
