@@ -18,6 +18,7 @@ async function generateLaunchCode() {
     let url = await VLaunch.getLaunchUrl(window.location.href);
 
     await generateQRCode(url);
+    showToaster("Launch Code Generated");
     console.log("Launch Code Generated");
 }
 
@@ -51,6 +52,8 @@ const planes = [
     "lukisan-5",
 ];
 
+let objectShown = false;
+
 /**
  * Handles the click event on the scene and changes the color of the intersected object if it is in the planes array.
  *
@@ -59,6 +62,9 @@ const planes = [
  * @param {THREE.Scene} scene - The scene containing the objects to be intersected.
  */
 function onClick(event, camera, scene) {
+    if (!objectShown) {
+        return;
+    }
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
@@ -71,6 +77,7 @@ function onClick(event, camera, scene) {
 
         if (planes.includes(intersectedObject.name)) {
             console.log("Object clicked:", intersectedObject);
+            showToaster(`Clicked on ${intersectedObject.name}`);
             document.getElementById(
                 "modal-" + planes.indexOf(intersectedObject.name)
             ).style.display = "block";
@@ -129,6 +136,23 @@ class SceneManager {
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
     }
+}
+
+/**
+ * Displays a toaster notification with the given message.
+ *
+ * @param {string} message - The message to display in the toaster.
+ */
+function showToaster(message) {
+    const toasterContainer = document.getElementById("toaster-container");
+    const toaster = document.createElement("div");
+    toaster.className = "bg-black text-white p-2 mb-2 rounded";
+    toaster.innerText = message;
+    toasterContainer.appendChild(toaster);
+
+    setTimeout(() => {
+        toaster.remove();
+    }, 3000);
 }
 
 /**
@@ -288,42 +312,51 @@ class UIManager {
 }
 
 async function main() {
+    showToaster("Checking XR support...");
     console.log("Checking XR support...");
     const ARSupported = await checkXRSupport();
     if (!ARSupported) {
+        showToaster("XR not supported");
         console.log("XR not supported");
         variantLaunch();
         document.getElementById("ar-not-supported").style.display = "block";
         return;
     }
 
+    showToaster("XR supported");
     console.log("XR supported");
     document.getElementById("ar-not-supported").style.display = "none";
     const rendererManager = new RendererManager();
     const sceneManager = new SceneManager(rendererManager.renderer);
 
+    showToaster("Loading model...");
     console.log("Loading model...");
     const model = await ModelLoader.loadModel(
         "/assets/ruangan.glb",
         (event) => {
             let progress = (event.loaded / event.total) * 100;
+            console.log(event.loaded, event.total, progress);
             progress = Math.min(progress, 100); // Ensure progress does not exceed 100%
             document.getElementById("loading-container").style.display =
                 "block";
             document.getElementById("loading-bar").style.width = `${progress}%`;
+            showToaster(`Loading progress: ${progress}%`);
             console.log("Loading progress: ", progress);
         }
     );
 
+    showToaster("Model loaded, initializing UIManager");
     console.log("Model loaded, initializing UIManager");
     new UIManager(rendererManager.renderer);
 
+    showToaster("Model loaded");
     console.log("Model loaded");
     model.scale.set(0.01, 0.01, 0.01);
     model.visible = false;
 
     const planesObject = [];
 
+    showToaster("Assigning textures to planes...");
     console.log("Assigning textures to planes...");
     for (let i = 0; i < lukisans.length; i++) {
         const plane = model.getObjectByName(planes[i]);
@@ -331,6 +364,7 @@ async function main() {
         const textureLoader = new THREE.TextureLoader();
         const texture = await textureLoader.loadAsync(lukisans[i].image);
         if (plane) {
+            showToaster(`Texture assigned to plane ${planes[i]}`);
             console.log(`Texture assigned to plane ${planes[i]}`);
             plane.material.transparent = false;
             plane.material.depthTest = true;
@@ -342,6 +376,7 @@ async function main() {
         }
     }
 
+    showToaster("Adding model to scene");
     console.log("Adding model to scene");
     sceneManager.scene.add(model);
     sceneManager.model = model;
@@ -360,8 +395,10 @@ async function main() {
         model.visible = true;
         sceneManager.reticle.visible = false;
         sceneManager.placed = true;
+        objectShown = true;
     });
 
+    showToaster("Starting animation loop");
     console.log("Starting animation loop");
     rendererManager.animate(sceneManager);
 }
