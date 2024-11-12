@@ -11,6 +11,7 @@ use App\Http\Requests\EditProfilePelukis;
 use App\Models\LukisanAr;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class PelukisController extends Controller
 {
@@ -137,8 +138,8 @@ class PelukisController extends Controller
         $input = $request->validated();
         $lukisan = LukisanAr::find($id);
 
-        if (!$lukisan) {
-            return redirect()->back()->with('error', 'lukisan tidak ditemukan');
+        if (!$lukisan || $lukisan->id_creator != auth()->user()->id) {
+            return redirect()->back()->with('error', 'lukisan tidak ditemukan atau Anda tidak memiliki izin untuk mengedit lukisan ini');
         }
 
         if ($request->has('image')) {

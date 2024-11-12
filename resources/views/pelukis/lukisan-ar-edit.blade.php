@@ -1,10 +1,10 @@
 @extends('layouts.pelukis')
 
 @section('main')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Lukisan Dijual /</span> Tambahkan Lukisan</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Lukisan Dijual /</span> Edit Lukisan</h4>
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Tambahkan Lukisan</h5>
+            <h5 class="mb-0">Edit Lukisan</h5>
         </div>
         <div class="card-body">
             <form action="{{ route('pelukis.lukisanAr.update', $lukisan->id) }}" method="POST" enctype="multipart/form-data">
@@ -15,6 +15,14 @@
                     <input value="{{ old('title', $lukisan->title) }}" name="title" type="text" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Nama Lukisan" required />
                     <div class="form-text">Inputkan judul lukisan</div>
                     @error('title')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Deskripsi <span class="text-danger">*</span></label>
+                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" placeholder="Deskripsi Lukisan" required>{{ old('description', $lukisan->description) }}</textarea>
+                    <div class="form-text">Inputkan deskripsi lukisan</div>
+                    @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
