@@ -61,6 +61,7 @@
             <div id="loading-bar"></div>
     </div>
     </div>
+    <div id="ar-button-container"></div>
     {{-- modal deskripsi lukisan --}}
     @foreach ($lukisans as $i => $lukisan)
         <div id="modal-{{ $i }}" class="fixed inset-0 z-50 overflow-y-auto bg-black/85 hidden" tabindex="-1" aria-labelledby="modal-{{ $i }}" aria-hidden="true">

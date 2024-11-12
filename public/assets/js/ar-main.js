@@ -252,12 +252,14 @@ class ModelLoader {
 
 class UIManager {
   constructor(renderer) {
-    document.body.appendChild(
-      ARButton.createButton(renderer, {
-        requiredFeatures: ["local", "hit-test", "dom-overlay"],
-        domOverlay: { root: document.querySelector("#overlay") },
-      })
-    );
+    if (!document.querySelector("#ar-button-container button")) {
+      document.querySelector("#ar-button-container").appendChild(
+        ARButton.createButton(renderer, {
+          requiredFeatures: ["local", "hit-test", "dom-overlay"],
+          domOverlay: { root: document.querySelector("#overlay") },
+        })
+      );
+    }
   }
 }
 
@@ -276,9 +278,11 @@ async function main() {
   const model = await ModelLoader.loadModel(
     "/assets/ruangan.glb",
     (event) => {
-      const progress = (event.loaded / event.total) * 100;
+      let progress = (event.loaded / event.total) * 100;
+      progress = Math.min(progress, 100); // Ensure progress does not exceed 100%
       document.getElementById("loading-container").style.display = "block";
       document.getElementById("loading-bar").style.width = `${progress}%`;
+      console.log("Loading progress: ", progress);
       if (progress >= 100) {
         new UIManager(rendererManager.renderer);
       }
