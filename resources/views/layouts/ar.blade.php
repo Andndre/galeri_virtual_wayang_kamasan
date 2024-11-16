@@ -40,9 +40,44 @@
 </head>
 
 <body>
-    <div id="overlay">
+    <script>
+        var popupVisible = false;
+    </script>
+    <div id="overlay" class="max-h-[100dvh] overflow-hidden">
         <div id="tracking-prompt"><img src="{{ asset('assets/img/ar/hand.png') }}" /></div>
         <div id="instructions">Tekan untuk memunculkan ruangan</div>
+        <div id="toaster-container" class="fixed bottom-0 right-0 m-4 z-[99999]"></div>
+        <div id="bottom-sheet" class="fixed bottom-0 left-0 right-0 bg-bg shadow-lg rounded-t-lg transform translate-y-full transition-transform duration-300 h-16 z-[100000]">
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-black">Deskripsi Lukisan</h3>
+            </div>
+            <div id="bottom-sheet-content" class="hidden p-4 overflow-y-auto h-[80vh] text-black text-center">
+                <ul id="lukisan-list" class="mt-2 flex flex-col gap-6">
+                    @foreach ($lukisans as $i => $lukisan)
+                        <li class="mb-2">
+                            <img class="w-60 max-w-full mx-auto" src="{{ $lukisan->image }}" alt="">
+                            <p>{{ $lukisan->description }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+                <button id="close-bottom-sheet" class="absolute top-2 right-2 text-black text-2xl">&times;</button>
+            </div>
+        </div>
+        <button id="expand-bottom-sheet" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-marun font-joti text-white px-6 py-3 rounded-full border-black border-[4px] z-[99999]" style="display: none;">
+            Show Details
+        </button>
+        <script>
+            document.getElementById('expand-bottom-sheet').addEventListener('click', function() {
+                document.getElementById('bottom-sheet').style.transform = 'translateY(0)';
+                document.getElementById('bottom-sheet').style.height = '80vh';
+                document.getElementById('bottom-sheet-content').style.display = 'block';
+            });
+            document.getElementById('close-bottom-sheet').addEventListener('click', function() {
+                document.getElementById('bottom-sheet').style.transform = 'translateY(100%)';
+                document.getElementById('bottom-sheet').style.height = '16px';
+                document.getElementById('bottom-sheet-content').style.display = 'none';
+            });
+        </script>
     </div>
     <div id="app">
         <a href="#"><img id="variant-logo" alt="Logo" src="{{ asset('assets/img/logo/text-logo.png') }}" /></a>
@@ -62,30 +97,8 @@
     </div>
     </div>
     <div id="ar-button-container"></div>
-    <div id="toaster-container" class="fixed bottom-0 right-0 m-4 z-[99999]"></div>
     {{-- modal deskripsi lukisan --}}
-    @foreach ($lukisans as $i => $lukisan)
-        <div id="modal-{{ $i }}" class="fixed inset-0 z-[99999] overflow-y-auto bg-black/85 hidden" tabindex="-1" aria-labelledby="modal-{{ $i }}" aria-hidden="true">
-            <div class="flex flex-col justify-center items-center h-full w-full animate-pop">
-                {{-- <img class="w-6/8 max-w-80" src="{{ asset('storage/' . $lukisan->image) }}" alt="{{ $lukisan->title }}" />
-                <div class="bg-marun text-white px-6 py-2 rounded-full border-black border-[4px] text-center w-[80%] max-w-96">
-                    <h2 class="text-lg font-joti">{{ $lukisan->title }}</h2>
-                </div> --}}
-                <div class="bg-marun text-white px-6 py-2 rounded-full border-black border-[4px] text-center w-[80%] max-w-96">
-                    <p>{{ $lukisan->description }}</p>
-                </div>
-                <button id="close-{{$i}}" class="mt-3 bg-marun font-joti text-white px-6 py-3 rounded-full border-black border-[4px]" data-bs-dismiss="modal" aria-label="Close">
-                    <span class="sr-only">Close</span>
-                    &times;
-                </button>
-                <script>
-                    document.getElementById('close-{{$i}}').addEventListener('click', function() {
-                        document.getElementById('modal-{{ $i }}').style.display = 'none';
-                    });
-                </script>
-            </div>
-        </div>
-    @endforeach
+
     <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
     @yield('lukisans')
     <script type="module" src="{{ asset('assets/js/ar-main.js') }}"></script>

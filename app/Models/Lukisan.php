@@ -13,5 +13,6 @@ class Lukisan extends Model
         'title',
         'price',
         'image',
+        'description',
     ];
 }

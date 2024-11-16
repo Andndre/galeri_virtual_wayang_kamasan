@@ -27,6 +27,14 @@
                     @enderror
                 </div>
                 <div class="mb-3">
+                    <label class="form-label" for="description">Deskripsi <span class="text-danger">*</span></label>
+                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="3" placeholder="Deskripsi Lukisan" required>{{ old('description', $lukisan->description) }}</textarea>
+                    <div class="form-text">Inputkan deskripsi lukisan</div>
+                    @error('description')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label class="form-label" for="profile_picture">Gambar Lukisan</label>
                     <input name="image" type="file" id="image" class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
                     <div class="mt-3">

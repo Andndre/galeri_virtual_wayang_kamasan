@@ -25,6 +25,7 @@ class CreateLukisan extends FormRequest
             'title' => ['string', 'required'],
             'price' => ['integer', 'required'],
             'image' => ['image', 'required'],
+            'description' => ['string', 'required'],
         ];
     }
 }

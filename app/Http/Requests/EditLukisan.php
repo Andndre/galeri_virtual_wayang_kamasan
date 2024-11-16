@@ -25,6 +25,7 @@ class EditLukisan extends FormRequest
             'title' => ['string', 'required'],
             'price' => ['integer', 'required'],
             'image' => ['image', 'nullable'],
+            'description' => ['string', 'nullable'],
         ];
     }
 }

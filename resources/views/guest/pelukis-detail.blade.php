@@ -32,9 +32,9 @@
                     {{-- grid of lukisan --}}
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 p-4">
                         @foreach ($pelukis->lukisans as $lukisan)
-                            <div class="bg-white">
+                            <div class="bg-white cursor-pointer" onclick="showModal({{ $lukisan->id }})">
                                 <div class="relative">
-                                    <img class="aspect-[6/4] object-cover object-center w-full" src="{{ $lukisan->image }}" alt="">
+                                    <img class="object-cover object-center w-full" src="{{ $lukisan->image }}" alt="">
                                     {{-- text harga di pojok kiri bawah gambar --}}
                                     <div class="absolute bottom-0 left-0 px-2 py-1 bg-white/90">
                                         <p class="text-lg font-bold">{{ 'Rp. ' . number_format($lukisan->price, 0, ',', '.') }}</p>
@@ -44,6 +44,12 @@
                                     <p class="font-joti font-semibold text-center text-lg">{{ $lukisan->title }}</p>
                                 </div>
                             </div>
+                            {{-- View button for mobile --}}
+                            <div class="block lg:hidden text-center mt-2">
+                                <button class="bg-marun text-white px-4 py-2 rounded-full border-2 border-black" onclick="showModal({{ $lukisan->id }})">
+                                    View
+                                </button>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -52,5 +58,66 @@
                 </div>
             </div>
         </div>
+        {{-- modal for each lukisan to display the description --}}
+        @foreach ($pelukis->lukisans as $lukisan)
+            <div class="hidden fixed inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center transition-opacity duration-300" id="modal-{{ $lukisan->id }}">
+                <div class="bg-bg w-full max-w-[600px] rounded-lg p-4">
+                    <div class="flex justify-between items-center">
+                        <h2 class="font-joti text-2xl font-bold">{{ $lukisan->title }}</h2>
+                        <button class="focus:outline-none" onclick="hideModal({{ $lukisan->id }})">
+                            <i class="bx bx-x text-3xl"></i>
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <p>{{ $lukisan->description }}</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="font-joti text-lg">{{ 'Rp. ' . number_format($lukisan->price, 0, ',', '.') }}</p>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
+
+    <style>
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        .fade-out {
+            opacity: 1;
+            animation: fadeOut 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <script>
+        function showModal(id) {
+            const modal = document.getElementById(`modal-${id}`);
+            modal.classList.remove('hidden');
+            modal.classList.add('fade-in');
+            modal.classList.remove('fade-out');
+        }
+
+        function hideModal(id) {
+            const modal = document.getElementById(`modal-${id}`);
+            modal.classList.add('fade-out');
+            modal.classList.remove('fade-in');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
 @endsection

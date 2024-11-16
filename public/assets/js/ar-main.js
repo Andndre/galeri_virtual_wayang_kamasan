@@ -42,8 +42,6 @@ async function checkXRSupport() {
     return false;
 }
 
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
 const planes = [
     "lukisan-demo",
     "lukisan-2",
@@ -53,37 +51,6 @@ const planes = [
 ];
 
 let objectShown = false;
-
-/**
- * Handles the click event on the scene and changes the color of the intersected object if it is in the planes array.
- *
- * @param {MouseEvent} event - The mouse event triggered by the click.
- * @param {THREE.Camera} camera - The camera used to render the scene.
- * @param {THREE.Scene} scene - The scene containing the objects to be intersected.
- */
-function onClick(event, camera, scene) {
-    if (!objectShown) {
-        return;
-    }
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    raycaster.setFromCamera(mouse, camera);
-
-    const intersects = raycaster.intersectObjects(scene.children, true);
-
-    if (intersects.length > 0) {
-        const intersectedObject = intersects[0].object;
-
-        if (planes.includes(intersectedObject.name)) {
-            console.log("Object clicked:", intersectedObject);
-            showToaster(`Clicked on ${intersectedObject.name}`);
-            document.getElementById(
-                "modal-" + planes.indexOf(intersectedObject.name)
-            ).style.display = "block";
-        }
-    }
-}
 
 class SceneManager {
     constructor(renderer) {
@@ -119,11 +86,6 @@ class SceneManager {
         this.scene.add(this.controller);
 
         window.addEventListener("resize", this.onWindowResize.bind(this));
-        window.addEventListener(
-            "click",
-            (event) => onClick(event, this.camera, this.scene),
-            false
-        );
     }
 
     setOnSelect(onSelect) {
@@ -133,6 +95,7 @@ class SceneManager {
     }
 
     onWindowResize() {
+        console.log('Resized');
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
     }
@@ -188,6 +151,7 @@ class RendererManager {
      */
     onSessionStart() {
         document.getElementById("tracking-prompt").style.display = "block";
+        document.getElementById("expand-bottom-sheet").style.display = "block";
     }
 
     /**
@@ -334,8 +298,8 @@ async function main() {
     const model = await ModelLoader.loadModel(
         "/assets/ruangan.glb",
         (event) => {
-            let progress = (event.loaded / (event.total || 43555996)) * 100;
-            console.log(event.loaded, event.total || 43555996, progress);
+            let progress = (event.loaded / (event.total || 43814676)) * 100;
+            console.log(event.loaded, event.total || 43814676, progress);
             progress = Math.min(progress, 100); // Ensure progress does not exceed 100%
             document.getElementById("loading-container").style.display =
                 "block";
@@ -373,12 +337,26 @@ async function main() {
             plane.geometry.computeBoundingBox();
             plane.updateMatrixWorld(true);
             plane.rotation.y = 0;
+
+            // Adjust plane height to maintain aspect ratio
+            const aspectRatio = texture.image.height / texture.image.width;
+            console.log('Aspect ratio: ' + aspectRatio);
+            // before
+            console.log('Before: ', plane.scale);
+            plane.scale.set(plane.scale.x, plane.scale.x * aspectRatio, plane.scale.z);
+            plane.updateMatrix(); // Add this line to update the matrix after scaling
+            // after
+            console.log('After: ', plane.scale);
+
+            // Flip the texture vertically
+            texture.flipY = false;
         }
     }
 
     showToaster("Adding model to scene");
     console.log("Adding model to scene");
     sceneManager.scene.add(model);
+    model.updateMatrixWorld(true);
     sceneManager.model = model;
 
     sceneManager.setOnSelect((matrix) => {
@@ -400,6 +378,17 @@ async function main() {
 
     showToaster("Starting animation loop");
     console.log("Starting animation loop");
+
+    setInterval(() => {
+        sceneManager.controller.updateMatrixWorld(true);
+        const position = new THREE.Vector3();
+        sceneManager.controller.getWorldPosition(position);
+        const quaternion = new THREE.Quaternion();
+        sceneManager.controller.getWorldQuaternion(quaternion);
+        showToaster("Controller location: " + position.toArray());
+        showToaster("Controller rotation: " + new THREE.Euler().setFromQuaternion(quaternion).toArray());
+    }, 1000);
+
     rendererManager.animate(sceneManager);
 }
 
