@@ -32,7 +32,7 @@
                     {{-- grid of lukisan --}}
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 p-4">
                         @foreach ($pelukis->lukisans as $lukisan)
-                            <div class="bg-white cursor-pointer" onclick="showModal({{ $lukisan->id }})">
+                            <div class="bg-bg cursor-pointer transform transition-transform duration-300 hover:-translate-y-2" onclick="showModal({{ $lukisan->id }})">
                                 <div class="relative">
                                     <img class="object-cover object-center w-full" src="{{ $lukisan->image }}" alt="">
                                     {{-- text harga di pojok kiri bawah gambar --}}
@@ -60,7 +60,7 @@
         </div>
         {{-- modal for each lukisan to display the description --}}
         @foreach ($pelukis->lukisans as $lukisan)
-            <div class="hidden fixed inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center transition-opacity duration-300" id="modal-{{ $lukisan->id }}">
+            <div class="hidden fixed inset-0 bg-black bg-opacity-50 z-10 items-center justify-center transition-opacity duration-300" id="modal-{{ $lukisan->id }}">
                 <div class="bg-bg w-full max-w-[600px] rounded-lg p-4">
                     <div class="flex justify-between items-center">
                         <h2 class="font-joti text-2xl font-bold">{{ $lukisan->title }}</h2>
@@ -107,7 +107,7 @@
         function showModal(id) {
             const modal = document.getElementById(`modal-${id}`);
             modal.classList.remove('hidden');
-            modal.classList.add('fade-in');
+            modal.classList.add('flex', 'fade-in');
             modal.classList.remove('fade-out');
         }
 
@@ -116,6 +116,7 @@
             modal.classList.add('fade-out');
             modal.classList.remove('fade-in');
             setTimeout(() => {
+                modal.classList.remove('flex');
                 modal.classList.add('hidden');
             }, 300);
         }
