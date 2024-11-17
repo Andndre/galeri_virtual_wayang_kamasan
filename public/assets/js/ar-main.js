@@ -43,7 +43,7 @@ async function checkXRSupport() {
 }
 
 const planes = [
-    "lukisan-demo",
+    "lukisan-1",
     "lukisan-2",
     "lukisan-3",
     "lukisan-4",
@@ -51,7 +51,7 @@ const planes = [
 ];
 
 const lukisanFrames = [
-    "frame-demo",
+    "lukisan-1-frame",
     "lukisan-2-frame",
     "lukisan-3-frame",
     "lukisan-4-frame",
