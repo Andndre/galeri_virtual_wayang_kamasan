@@ -50,7 +50,13 @@ const planes = [
     "lukisan-5",
 ];
 
-let objectShown = false;
+const lukisanFrames = [
+    "frame-demo",
+    "lukisan-2-frame",
+    "lukisan-3-frame",
+    "lukisan-4-frame",
+    "lukisan-5-frame",
+]
 
 class SceneManager {
     constructor(renderer) {
@@ -107,9 +113,10 @@ class SceneManager {
  * @param {string} message - The message to display in the toaster.
  */
 function showToaster(message) {
+    console.log(message);
     const toasterContainer = document.getElementById("toaster-container");
     const toaster = document.createElement("div");
-    toaster.className = "bg-black text-white p-2 mb-2 rounded";
+    toaster.className = "toaster";
     toaster.innerText = message;
     toasterContainer.appendChild(toaster);
 
@@ -117,7 +124,6 @@ function showToaster(message) {
         toaster.remove();
     }, 3000);
 }
-
 /**
  * Manages the rendering process and XR session for the application.
  */
@@ -131,6 +137,7 @@ class RendererManager {
             antialias: true,
             alpha: true,
         });
+        this.onSessionStarts = [];
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.xr.enabled = true;
@@ -150,8 +157,12 @@ class RendererManager {
      * Displays the tracking prompt.
      */
     onSessionStart() {
+        document.getElementById("instructions").style.display = "none";
         document.getElementById("tracking-prompt").style.display = "block";
         document.getElementById("expand-bottom-sheet").style.display = "block";
+        for (const callback of this.onSessionStarts) {
+            callback();
+        }
     }
 
     /**
@@ -262,26 +273,22 @@ class ModelLoader {
     }
 }
 
-class UIManager {
-    constructor(renderer) {
-        if (!document.querySelector("#ar-button-container button")) {
-            document.querySelector("#ar-button-container").appendChild(
-                ARButton.createButton(renderer, {
-                    requiredFeatures: ["local", "hit-test", "dom-overlay"],
-                    domOverlay: { root: document.querySelector("#overlay") },
-                })
-            );
-        }
+function createARButton(renderer) {
+    if (!document.querySelector("#ar-button-container button")) {
+        document.querySelector("#ar-button-container").appendChild(
+            ARButton.createButton(renderer, {
+                requiredFeatures: ["local", "hit-test", "dom-overlay"],
+                domOverlay: { root: document.querySelector("#overlay") },
+            })
+        );
     }
 }
 
 async function main() {
     showToaster("Checking XR support...");
-    console.log("Checking XR support...");
     const ARSupported = await checkXRSupport();
     if (!ARSupported) {
         showToaster("XR not supported");
-        console.log("XR not supported");
         variantLaunch();
         document.getElementById("ar-not-supported").style.display = "block";
         return;
@@ -294,7 +301,6 @@ async function main() {
     const sceneManager = new SceneManager(rendererManager.renderer);
 
     showToaster("Loading model...");
-    console.log("Loading model...");
     const model = await ModelLoader.loadModel(
         "/assets/ruangan.glb",
         (event) => {
@@ -305,62 +311,100 @@ async function main() {
                 "block";
             document.getElementById("loading-bar").style.width = `${progress}%`;
             showToaster(`Loading progress: ${progress}%`);
-            console.log("Loading progress: ", progress);
         }
     );
 
-    showToaster("Model loaded, initializing UIManager");
-    console.log("Model loaded, initializing UIManager");
-    new UIManager(rendererManager.renderer);
-
-    showToaster("Model loaded");
-    console.log("Model loaded");
-    model.scale.set(0.01, 0.01, 0.01);
-    model.visible = false;
-
-    const planesObject = [];
-
+    showToaster("Model loaded, creating AR button");
+    createARButton(rendererManager.renderer);
     showToaster("Assigning textures to planes...");
-    console.log("Assigning textures to planes...");
     for (let i = 0; i < lukisans.length; i++) {
         const plane = model.getObjectByName(planes[i]);
-        planesObject.push(plane);
+        const frame = model.getObjectByName(lukisanFrames[i]);
         const textureLoader = new THREE.TextureLoader();
         const texture = await textureLoader.loadAsync(lukisans[i].image);
         if (plane) {
+            console.log("Plane: ", plane);
             showToaster(`Texture assigned to plane ${planes[i]}`);
-            console.log(`Texture assigned to plane ${planes[i]}`);
-            plane.material.transparent = false;
-            plane.material.depthTest = true;
-            plane.material.depthWrite = true;
             plane.material.map = texture;
-            plane.geometry.computeBoundingBox();
-            plane.updateMatrixWorld(true);
             plane.rotation.y = 0;
 
-            // Adjust plane height to maintain aspect ratio
-            const aspectRatio = texture.image.height / texture.image.width;
-            console.log('Aspect ratio: ' + aspectRatio);
-            // before
-            console.log('Before: ', plane.scale);
-            plane.scale.set(plane.scale.x, plane.scale.x * aspectRatio, plane.scale.z);
-            plane.updateMatrix(); // Add this line to update the matrix after scaling
-            // after
-            console.log('After: ', plane.scale);
+            // Ensure the texture is fully loaded before applying scaling
+            if (texture.image) {
+                // Adjust plane height to maintain aspect ratio
+                const aspectRatio = texture.image.height / texture.image.width;
+                console.log('Aspect ratio: ' + aspectRatio);
+                console.log('Before scaling: ', plane.scale);
 
-            // Flip the texture vertically
-            texture.flipY = false;
+                // Apply aspect ratio scaling
+                plane.scale.set(plane.scale.x, plane.scale.y * aspectRatio, plane.scale.z);
+                frame.scale.set(frame.scale.x, frame.scale.y * aspectRatio, frame.scale.z);
+
+                console.log("Parent: ", plane.parent);
+                console.log(plane.parent === model); // True
+                plane.parent?.updateMatrixWorld(true);
+                console.log('After scaling: ', plane.scale);
+
+                // Flip the texture vertically
+                texture.flipY = false;
+            } else {
+                console.error('Texture image not found for plane:', planes[i]);
+            }
+        } else {
+            console.error('Plane not found:', planes[i]);
         }
     }
 
+    const maskObject = model.getObjectByName("mask");
+    if (maskObject) {
+        // make the other object behind transparent with colorWrite
+        maskObject.material.colorWrite = false;
+    }
+
+    const videoPortalObject = model.getObjectByName("video-portal");
+    if (videoPortalObject) {
+        rendererManager.onSessionStarts.push(async () => {
+            showToaster("Starting video portal");
+            /**
+             * @type {HTMLVideoElement} video
+             */
+            const video = document.getElementById("video-portal");
+
+            // Ensure the video is loaded and ready before playing
+            video.addEventListener('canplay', async () => {
+                await video.play();
+                const videoTexture = new THREE.VideoTexture(video);
+                videoPortalObject.material.map = videoTexture;
+                videoPortalObject.material.needsUpdate = true;
+            });
+
+            video.addEventListener('error', (e) => {
+                showToaster("Video error: " + e.message);
+            });
+
+            // Load the video if it's not already loaded
+            if (video.readyState >= 2) {
+                showToaster("Video already loaded");
+                console.log("Video already loaded");
+                video.dispatchEvent(new Event('canplay'));
+            } else {
+                showToaster("Loading video");
+                console.log("Loading video");
+                video.load(); // Ensure the video is loaded
+            }
+        });
+    }
+
     showToaster("Adding model to scene");
-    console.log("Adding model to scene");
+    model.visible = false;
     sceneManager.scene.add(model);
     model.updateMatrixWorld(true);
     sceneManager.model = model;
-
     sceneManager.setOnSelect((matrix) => {
         if (model.visible) return;
+        console.log("Placing model");
+        console.log("Position: ", model.position);
+        console.log("Quaternion: ", model.quaternion);
+        console.log("Scale: ", model.scale);
         matrix.decompose(model.position, model.quaternion, model.scale);
 
         const targetPosition = new THREE.Vector3();
@@ -373,21 +417,9 @@ async function main() {
         model.visible = true;
         sceneManager.reticle.visible = false;
         sceneManager.placed = true;
-        objectShown = true;
     });
 
     showToaster("Starting animation loop");
-    console.log("Starting animation loop");
-
-    setInterval(() => {
-        sceneManager.controller.updateMatrixWorld(true);
-        const position = new THREE.Vector3();
-        sceneManager.controller.getWorldPosition(position);
-        const quaternion = new THREE.Quaternion();
-        sceneManager.controller.getWorldQuaternion(quaternion);
-        showToaster("Controller location: " + position.toArray());
-        showToaster("Controller rotation: " + new THREE.Euler().setFromQuaternion(quaternion).toArray());
-    }, 1000);
 
     rendererManager.animate(sceneManager);
 }

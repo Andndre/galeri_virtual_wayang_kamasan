@@ -37,6 +37,40 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @yield('css')
+
+    <style>
+        .toaster {
+            background-color: black;
+            color: white;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.25rem;
+            position: relative;
+            animation: slide-in 0.2s forwards, slide-out 0.2s 2.5s forwards;
+        }
+
+        @keyframes slide-in {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slide-out {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -44,6 +78,9 @@
         var popupVisible = false;
     </script>
     <div id="overlay" class="max-h-[100dvh] overflow-hidden">
+        <video id="video-portal" loop crossOrigin="anonymous" playsinline style="display:none" class="rotate-[90deg]">
+            <source src="{{ asset('assets/portal.mp4') }}" type="video/mp4">
+        </video>
         <div id="tracking-prompt"><img src="{{ asset('assets/img/ar/hand.png') }}" /></div>
         <div id="instructions">Tekan untuk memunculkan ruangan</div>
         <div id="toaster-container" class="fixed bottom-0 right-0 m-4 z-[99999]"></div>
