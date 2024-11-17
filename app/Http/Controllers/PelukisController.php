@@ -168,11 +168,11 @@ class PelukisController extends Controller
         $user = User::find($auth->id);
         $input = $request->validated();
 
-        if ($request->has('image')) {
+        if ($request->has('profile_picture')) {
             // $input['image'] = $request->file('image')->store('profile', 'public');
-            $fileName = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('profile_picture'), $fileName);
-            $input['image'] = '/profile_picture/' . $fileName;
+            $fileName = time() . '_' . uniqid() . '.' . $request->file('profile_picture')->getClientOriginalExtension();
+            $request->file('profile_picture')->move(public_path('profile_picture'), $fileName);
+            $input['profile_picture'] = '/profile_picture/' . $fileName;
         }
 
         $user->update($input);

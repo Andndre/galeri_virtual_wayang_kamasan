@@ -7,9 +7,9 @@
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <thead class="text-nowrap">
-                    <th>Actions</th>
+                    <th>Aksi</th>
                     <th>Foto</th>
-                    <th>Judul</th>
+                    <th>Deskripsi</th>
                 </thead>
                 <tbody>
                     @foreach ($lukisan as $l)
@@ -28,7 +28,7 @@
                             </td>
                             <td><img class="avatar avatar-lg" src="{{ $l->image }}"
                                     alt="profile picture"></td>
-                            <td>{{ $l->title }}</td>
+                            <td>{{ $l->description }}</td>
                         </tr>
                     @endforeach
                 </tbody>

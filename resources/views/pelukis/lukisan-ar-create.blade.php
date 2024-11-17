@@ -10,11 +10,6 @@
             <form action="{{ route('pelukis.lukisanAr.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
-                    <label class="form-label" for="title">Judul <span class="text-danger">*</span></label>
-                    <input name="title" type="text" class="form-control" id="title" placeholder="Nama Lukisan" required />
-                    <div class="form-text">Inputkan judul lukisan</div>
-                </div>
-                <div class="mb-3">
                     <label class="form-label" for="description" required>Deskripsi <span class="text-danger">*</span></label>
                     <textarea name="description" class="form-control" id="description" rows="3" placeholder="Deskripsi Lukisan"></textarea>
                     <div class="form-text">Inputkan deskripsi lukisan</div>

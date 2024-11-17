@@ -23,7 +23,7 @@ class EditProfilePelukis extends FormRequest
     {
         return [
             'name' => ['string', 'required'],
-            'profile_picture' => ['image', 'required', 'max:2048'],
+            'profile_picture' => ['image', 'nullable', 'max:2048'],
             'whatsapp' => ['string', 'required'],
             'address' => ['string', 'required']
         ];

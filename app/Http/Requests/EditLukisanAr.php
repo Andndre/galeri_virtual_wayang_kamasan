@@ -22,7 +22,6 @@ class EditLukisanAr extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['string', 'required'],
             'image' => ['image', 'nullable'],
             'description' => ['string', 'required'],
         ];

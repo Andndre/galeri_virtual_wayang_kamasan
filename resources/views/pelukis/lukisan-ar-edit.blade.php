@@ -11,14 +11,6 @@
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
-                    <label class="form-label" for="title">Judul <span class="text-danger">*</span></label>
-                    <input value="{{ old('title', $lukisan->title) }}" name="title" type="text" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Nama Lukisan" required />
-                    <div class="form-text">Inputkan judul lukisan</div>
-                    @error('title')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-3">
                     <label class="form-label" for="description">Deskripsi <span class="text-danger">*</span></label>
                     <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" placeholder="Deskripsi Lukisan" required>{{ old('description', $lukisan->description) }}</textarea>
                     <div class="form-text">Inputkan deskripsi lukisan</div>

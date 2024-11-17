@@ -7,7 +7,7 @@
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <thead class="text-nowrap">
-                    <th>Actions</th>
+                    <th>Aksi</th>
                     <th>Foto</th>
                     <th>Judul</th>
                     <th>Harga</th>

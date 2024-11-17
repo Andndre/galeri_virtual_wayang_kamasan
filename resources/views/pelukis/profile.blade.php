@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class="profile-avatar-wrapper position-relative">
                         <img id="profile_picture_preview"
-                            src="{{ $user->profile_picture ? Storage::url($user->profile_picture) : 'default-avatar.png' }}"
+                            src="{{ $user->profile_picture ? $user->profile_picture : 'default-avatar.png' }}"
                             class="rounded-circle img-thumbnail mx-auto avatar-xxxl" style="max-width: 150px;"
                             alt="Profile Avatar">
                         <button id="change-avatar-btn"

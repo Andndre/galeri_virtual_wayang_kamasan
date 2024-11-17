@@ -22,7 +22,6 @@ class CreateLukisanAr extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['string', 'required'],
             'image' => ['image', 'required'],
             'description' => ['string', 'required'],
         ];
