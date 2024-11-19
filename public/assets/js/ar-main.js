@@ -371,7 +371,12 @@ async function main() {
 
             // Ensure the video is loaded and ready before playing
             video.addEventListener('canplay', async () => {
-                await video.play();
+                showToaster("Video can play");
+                console.log("Video can play");
+                await video.play().catch(error => {
+                    showToaster("Video play error: " + error.message);
+                    console.error("Video play error:", error);
+                });
                 const videoTexture = new THREE.VideoTexture(video);
                 videoPortalObject.material.map = videoTexture;
                 videoPortalObject.material.needsUpdate = true;
@@ -379,6 +384,7 @@ async function main() {
 
             video.addEventListener('error', (e) => {
                 showToaster("Video error: " + e.message);
+                console.error("Video error:", e);
             });
 
             // Load the video if it's not already loaded
@@ -391,6 +397,17 @@ async function main() {
                 console.log("Loading video");
                 video.load(); // Ensure the video is loaded
             }
+
+            // Add a button to start the video manually
+            const playButton = document.createElement('button');
+            playButton.innerText = "Play Video";
+            playButton.addEventListener('click', async () => {
+                await video.play().catch(error => {
+                    showToaster("Video play error: " + error.message);
+                    console.error("Video play error:", error);
+                });
+            });
+            document.body.appendChild(playButton);
         });
     }
 

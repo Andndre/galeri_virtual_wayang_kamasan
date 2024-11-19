@@ -6,13 +6,13 @@
 
 @section('main')
 <div class="flex flex-col gap-3 justify-center items-center h-[100vh] w-full">
-    <img class="w-6/8 max-w-80 mt-24" src="{{ asset('assets/img/guest/text-logo.png') }}" alt="">
+    <img class="w-5/8 max-w-full md:max-w-80 mt-12 lg:mt-16" src="{{ asset('assets/img/guest/text-logo.png') }}" alt="">
 
     <div class="relative w-72 overflow-hidden" id="carousel-wrapper">
         <div class="flex transition-transform duration-300 ease-in-out" id="carousel">
             @foreach ($pelukis as $p)
                 <div class="flex-shrink-0 w-72 flex flex-col items-center gap-3">
-                    <img class="w-full h-auto object-cover aspect-square rounded-lg" src="{{ $p->profile_picture }}" alt="{{ $p->name }}">
+                    <img class="w-full h-36 lg:h-auto object-contain aspect-square rounded-lg" src="{{ $p->profile_picture }}" alt="{{ $p->name }}">
                     <a href="{{ route('guest.pelukis.detail', $p->id) }}" class="bg-marun text-white px-12 py-2 rounded-full text-center font-joti border-4 border-black">
                         {{ $p->name }}
                     </a>
@@ -24,11 +24,11 @@
     <!-- Arrow Controls -->
     <div class="flex justify-center items-center gap-3 mt-6">
         <button id="prev" class="focus:outline-none">
-            <img class="h-8" src="{{ asset('assets/img/guest/arrow.svg') }}" alt="Previous">
+            <img class="h-5 lg:h-8" src="{{ asset('assets/img/guest/arrow.svg') }}" alt="Previous">
         </button>
         <span class="font-joti text-xl text-marun">Pilih Pelukis</span>
         <button id="next" class="focus:outline-none rotate-180">
-            <img class="h-8" src="{{ asset('assets/img/guest/arrow.svg') }}" alt="Next">
+            <img class="h-5 lg:h-8" src="{{ asset('assets/img/guest/arrow.svg') }}" alt="Next">
         </button>
     </div>
 </div>

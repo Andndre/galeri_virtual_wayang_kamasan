@@ -29,7 +29,10 @@ class PelukisController extends Controller
     }
 
     public function index() {
-        return view('pelukis.home');
+        $user = auth()->user();
+        $lukisan = $user->lukisans;
+        $lukisanAr = $user->lukisansAr;
+        return view('pelukis.home', compact('lukisan', 'lukisanAr'));
     }
 
     public function lukisan() {

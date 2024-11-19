@@ -30,7 +30,7 @@
 <body class="relative bg-no-repeat bg-center h-[100dvh] bg-cover"
     style="background-image: url('{{ asset('assets/img/guest/wayang-blur.png') }}'); background-position: center;">
 
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Function to create and play audio from a Blob
             function playAudioFromBlob(blobUrl) {
@@ -74,10 +74,20 @@
             };
             request.send();
         });
-    </script>
+    </script> --}}
+
+    <div id="main-content" class="{{ request()->is('/') ? 'opacity-0' : null }}">
+        <div class="relative">
+            <main class="z-20 absolute w-full">
+                @yield('main')
+            </main>
+            @yield('overlay')
+        </div>
+    </div>
 
 
-    {{-- <div id="splash-screen" class="absolute inset-0 flex flex-col justify-center items-center animate-fadeIn">
+    @if (request()->is('/'))
+        <div id="splash-screen" class="absolute inset-0 flex flex-col justify-center items-center animate-fadeIn">
             <div class="absolute z-10 top-0 w-full">
                 <div class="w-full h-6 bg-repeat-x bg-marun" style="background-image: url('{{ asset('assets/img/guest/kiran.png') }}'); background-size: auto 100%;">
                 </div>
@@ -105,17 +115,8 @@
             <div class="w-full h-full flex justify-center items-center z-10">
                 <img class="w-2/3 max-w-64 animate-pop" src="{{ asset('assets/img/guest/splash-logo.png') }}" alt="Welcome">
             </div>
-        </div> --}}
-
-    <div id="main-content">
-        <div class="relative">
-            <main class="z-20 absolute w-full">
-                @yield('main')
-            </main>
-            @yield('overlay')
         </div>
-    </div>
-    {{-- <style>
+        <style>
             .fade-out {
                 opacity: 0;
                 transition: opacity 1s ease-out;
@@ -124,11 +125,11 @@
                 opacity: 1;
                 transition: opacity 1s ease-in;
             }
-        </style> --}}
-    {{-- <script>
+        </style>
+        <script>
+            const splashScreen = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
             setTimeout(function() {
-                const splashScreen = document.getElementById('splash-screen');
-                const mainContent = document.getElementById('main-content');
 
                 splashScreen.classList.add('fade-out');
                 setTimeout(() => {
@@ -137,7 +138,11 @@
                     mainContent.classList.remove('opacity-0');
                 }, 1000);
             }, 3000);
-        </script> --}}
+        </script>
+    @endif
+
+
+
 
     @yield('js')
 </body>
