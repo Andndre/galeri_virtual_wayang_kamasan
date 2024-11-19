@@ -11,32 +11,49 @@
                 @csrf
                 <div class="mb-3">
                     <label class="form-label" for="name">Nama Lengkap <span class="text-danger">*</span></label>
-                    <input name="name" type="text" class="form-control" id="name" placeholder="John Doe" required />
+                    <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="John Doe" value="{{ old('name') }}" required />
+                    @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                     <div class="form-text">Inputkan nama lengkap dari pelukis</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
-                    <input name="email" type="email" class="form-control" id="email" placeholder="example@gmail.com" required />
+                    <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="example@gmail.com" value="{{ old('email') }}" required />
+                    @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                     <div class="form-text">Inputkan email yang akan digunakan untuk login</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="password">Kata Sandi <span class="text-danger">*</span></label>
-                    <input name="password" type="password" class="form-control" id="password" placeholder="**********" required />
+                    <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="**********" required />
+                    @error('password')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                     <div class="form-text">Inputkan password yang akan digunakan untuk login</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="whatsapp">Nomor Whatsapp</label>
-                    <input name="whatsapp" type="text" id="whatsapp" class="form-control phone-mask"
-                    placeholder="0812345567910" />
+                    <input name="whatsapp" type="text" id="whatsapp" class="form-control phone-mask @error('whatsapp') is-invalid @enderror" placeholder="0812345567910" value="{{ old('whatsapp') }}" />
+                    @error('whatsapp')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                     <div class="form-text">Inputkan nomor whatsapp yang aktif, dengan format 08xxxxxxx</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="address">Alamat</label>
-                    <textarea name="address" id="address" class="form-control" placeholder="Alamat Pelukis"></textarea>
+                    <textarea name="address" id="address" class="form-control @error('address') is-invalid @enderror" placeholder="Alamat Pelukis">{{ old('address') }}</textarea>
+                    @error('address')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="profile_picture">Foto Profil</label>
-                    <input name="profile_picture" type="file" id="profile_picture" class="form-control" onchange="previewImage(event)">
+                    <input name="profile_picture" type="file" id="profile_picture" class="form-control @error('profile_picture') is-invalid @enderror" onchange="previewImage(event)">
+                    @error('profile_picture')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                     <div class="mt-3">
                         <img id="profile_picture_preview" src="" alt="Preview" style="max-width: 150px; display: none;" />
                     </div>
@@ -63,6 +80,6 @@
                 preview.src = '';
                 preview.style.display = 'none'; // Hide the preview if no file is selected
             }
-    }
+        }
     </script>
 @endsection
