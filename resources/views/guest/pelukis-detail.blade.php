@@ -32,11 +32,11 @@
                     {{-- grid of lukisan --}}
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 p-4">
                         @foreach ($pelukis->lukisans as $lukisan)
-                            <div class="bg-bg cursor-pointer transform transition-transform duration-300 hover:-translate-y-2" onclick="showModal({{ $lukisan->id }})">
+                            <div class="bg-cokelat cursor-pointer transform transition-transform duration-300 hover:-translate-y-2" onclick="showModal({{ $lukisan->id }})">
                                 <div class="relative">
                                     <img class="object-cover object-center w-full" src="{{ $lukisan->image }}" alt="">
                                     {{-- text harga di pojok kiri bawah gambar --}}
-                                    <div class="absolute bottom-0 left-0 px-2 py-1 bg-white/90">
+                                    <div class="absolute bottom-0 left-0 px-2 py-1 bg-white/60">
                                         <p class="text-lg font-bold">{{ 'Rp. ' . number_format($lukisan->price, 0, ',', '.') }}</p>
                                     </div>
                                 </div>

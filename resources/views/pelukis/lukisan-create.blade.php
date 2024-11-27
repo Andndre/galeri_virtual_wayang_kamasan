@@ -1,10 +1,10 @@
 @extends('layouts.pelukis')
 
 @section('main')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Lukisan Dijual /</span> Tambahkan Lukisan</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Produk Dijual /</span> Tambahkan Produk</h4>
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Tambahkan Lukisan</h5>
+            <h5 class="mb-0">Tambahkan Produk</h5>
         </div>
         <div class="card-body">
             <form action="{{ route('pelukis.lukisan.store') }}" method="POST" enctype="multipart/form-data">
@@ -12,7 +12,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="title">Judul <span class="text-danger">*</span></label>
                     <input name="title" type="text" class="form-control" id="title" placeholder="Nama Lukisan" required />
-                    <div class="form-text">Inputkan judul lukisan</div>
+                    <div class="form-text">Inputkan judul produk</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Harga <span class="text-danger">*</span></label>
@@ -22,10 +22,10 @@
                 <div class="mb-3">
                     <label class="form-label" for="description">Deskripsi <span class="text-danger">*</span></label>
                     <textarea name="description" class="form-control" id="description" rows="3" placeholder="Deskripsi Lukisan" required></textarea>
-                    <div class="form-text">Inputkan deskripsi lukisan</div>
+                    <div class="form-text">Inputkan deskripsi produk</div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="profile_picture">Gambar Lukisan</label>
+                    <label class="form-label" for="profile_picture">Gambar Produk</label>
                     <input name="image" type="file" id="image" class="form-control" onchange="previewImage(event)">
                     <div class="mt-3">
                         <img id="image_preview" src="" alt="Preview" style="max-width: 150px; display: none;" />

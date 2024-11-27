@@ -15,8 +15,9 @@ export default {
             colors: {
                 bg: "#FFF3DB",
                 marun: "#8F2918",
-                cokelat: "#521919",
+                cokelat: "#B9825A",
                 light: "#FEE2C8",
+                orange: "#F5804E"
             },
             keyframes: {
                 pop: {
@@ -27,6 +28,14 @@ export default {
                     "100%": {
                         transform: "scale(1)",
                         opacity: "1",
+                    },
+                },
+                breathe: {
+                    "0%, 100%": {
+                        transform: "scale(1)",
+                    },
+                    "50%": {
+                        transform: "scale(1.05)",
                     },
                 },
                 fadeIn: {
@@ -75,6 +84,7 @@ export default {
             },
             animation: {
                 pop: "pop 0.5s ease-out",
+                breathe: "breathe 2s ease-in-out infinite",
                 fadeIn: "fadeIn 1s ease-out",
                 linspin: "linspin 1568.2353ms linear infinite",
                 easespin:

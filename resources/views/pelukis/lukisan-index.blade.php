@@ -1,9 +1,9 @@
 @extends('layouts.pelukis')
 
 @section('main')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pengaturan Pelukis /</span> Daftar Pelukis</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Produk Dijual /</span> Daftar Produk</h4>
     <div class="card">
-        <h5 class="card-header">Daftar Lukisan</h5>
+        <h5 class="card-header">Daftar Produk</h5>
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <thead class="text-nowrap">

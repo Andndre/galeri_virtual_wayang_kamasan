@@ -7,18 +7,18 @@
             'route_is' => 'pelukis.home'
         ],
         [
-            'label' => 'Lukisan Dijual',
+            'label' => 'Produk Dijual',
             'url' => '#',
             'icon' => 'bx bx-palette',
             'route_is' => 'pelukis.lukisan.*',
             'submenu' => [
                 [
-                    'label' => 'Tambahan Lukisan',
+                    'label' => 'Tambahan Produk',
                     'url' => route('pelukis.lukisan.create'),
                     'route_is' => 'pelukis.lukisan.create'
                 ],
                 [
-                    'label' => 'Daftar Lukisan',
+                    'label' => 'Daftar Produk',
                     'url' => route('pelukis.lukisan.index'),
                     'route_is' => 'pelukis.lukisan.index'
                 ],
