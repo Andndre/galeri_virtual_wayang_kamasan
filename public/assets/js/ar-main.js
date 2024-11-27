@@ -303,8 +303,8 @@ async function main() {
     const model = await ModelLoader.loadModel(
         "/assets/ruangan.glb",
         (event) => {
-            let progress = (event.loaded / (event.total || 78759816)) * 100;
-            console.log(event.loaded, event.total || 78759816, progress);
+            let progress = (event.loaded / (event.total || 46851160)) * 100;
+            console.log(event.loaded, event.total || 46851160, progress);
             progress = Math.min(progress, 100); // Ensure progress does not exceed 100%
             document.getElementById("loading-container").style.display =
                 "block";
