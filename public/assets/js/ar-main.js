@@ -157,7 +157,6 @@ class RendererManager {
      * Displays the tracking prompt.
      */
     onSessionStart() {
-        document.getElementById("instructions").style.display = "none";
         document.getElementById("tracking-prompt").style.display = "block";
         document.getElementById("expand-bottom-sheet").style.display = "block";
         for (const callback of this.onSessionStarts) {
@@ -244,7 +243,8 @@ class RendererManager {
                 sceneManager.reticle.visible = false;
                 document.getElementById("tracking-prompt").style.display =
                     "none";
-                document.getElementById("instructions").style.display = "flex";
+                    console.log("Plane found");
+                document.getElementById("instructions").style.display = "block";
             }
 
             const hit = hitTestResults[0];
@@ -295,7 +295,6 @@ async function main() {
     }
 
     showToaster("XR supported");
-    console.log("XR supported");
     document.getElementById("ar-not-supported").style.display = "none";
     const rendererManager = new RendererManager();
     const sceneManager = new SceneManager(rendererManager.renderer);
@@ -304,8 +303,8 @@ async function main() {
     const model = await ModelLoader.loadModel(
         "/assets/ruangan.glb",
         (event) => {
-            let progress = (event.loaded / (event.total || 43814676)) * 100;
-            console.log(event.loaded, event.total || 43814676, progress);
+            let progress = (event.loaded / (event.total || 78759816)) * 100;
+            console.log(event.loaded, event.total || 78759816, progress);
             progress = Math.min(progress, 100); // Ensure progress does not exceed 100%
             document.getElementById("loading-container").style.display =
                 "block";
@@ -313,6 +312,8 @@ async function main() {
             showToaster(`Loading progress: ${progress}%`);
         }
     );
+
+    document.getElementById("loading-container").style.display = "none";
 
     showToaster("Model loaded, creating AR button");
     createARButton(rendererManager.renderer);
@@ -387,7 +388,6 @@ async function main() {
                 console.error("Video error:", e);
             });
 
-            // Load the video if it's not already loaded
             if (video.readyState >= 2) {
                 showToaster("Video already loaded");
                 console.log("Video already loaded");
@@ -395,10 +395,9 @@ async function main() {
             } else {
                 showToaster("Loading video");
                 console.log("Loading video");
-                video.load(); // Ensure the video is loaded
+                video.load();
             }
 
-            // Add a button to start the video manually
             const playButton = document.createElement('button');
             playButton.innerText = "Play Video";
             playButton.addEventListener('click', async () => {
@@ -418,6 +417,7 @@ async function main() {
     sceneManager.model = model;
     sceneManager.setOnSelect((matrix) => {
         if (model.visible) return;
+        document.getElementById("instructions").style.display = "none";
         console.log("Placing model");
         console.log("Position: ", model.position);
         console.log("Quaternion: ", model.quaternion);
@@ -434,6 +434,31 @@ async function main() {
         model.visible = true;
         sceneManager.reticle.visible = false;
         sceneManager.placed = true;
+
+        const audio = document.getElementById("audio-portal");
+        audio.addEventListener('canplay', async () => {
+            showToaster("Audio can play");
+            console.log("Audio can play");
+            await audio.play().catch(error => {
+                showToaster("Audio play error: " + error.message);
+                console.error("Audio play error:", error);
+            });
+        });
+
+        audio.addEventListener('error', (e) => {
+            showToaster("Audio error: " + e.message);
+            console.error("Audio error:", e);
+        });
+
+        if (audio.readyState >= 2) {
+            showToaster("Audio already loaded");
+            console.log("Audio already loaded");
+            audio.dispatchEvent(new Event('canplay'));
+        } else {
+            showToaster("Loading audio");
+            console.log("Loading audio");
+            audio.load();
+        }
     });
 
     showToaster("Starting animation loop");

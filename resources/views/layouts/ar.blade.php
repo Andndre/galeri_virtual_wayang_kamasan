@@ -77,25 +77,37 @@
     <script>
         var popupVisible = false;
     </script>
-    <div id="overlay" class="max-h-[100dvh] overflow-hidden">
+    <div id="overlay" class="max-h-[100dvh] overflow-hidden relative">
+        <div id="instructions" class="bg-[#470C02] z-[100000] w-full text-center hidden absolute top-0 p-4">Tekan lingkaran untuk memunculkan ruangan</div>
+        <audio id="audio-portal">
+            {{-- if language preference is set to id, then use assets/music/indonesia-wayang-kamasan-gallery.mp3 --}}
+            @if (session()->has('locale') && session('locale') == 'id')
+                <source src="{{ asset('assets/music/indonesia-wayang-kamasan-gallery.mp3') }}" type="audio/mpeg">
+            @else
+            {{-- else, use assets/music/english-wayang-kamasan-gallery.mp3 --}}
+                <source src="{{ asset('assets/music/english-wayang-kamasan-gallery.mp3') }}" type="audio/mpeg">
+            @endif
+        </audio>
         <video id="video-portal" loop crossOrigin="anonymous" playsinline style="display:none" class="rotate-[90deg]">
             <source src="{{ asset('assets/portal.mp4') }}" type="video/mp4">
         </video>
         <div id="tracking-prompt"><img src="{{ asset('assets/img/ar/hand.png') }}" /></div>
-        <div id="instructions">Tekan untuk memunculkan ruangan</div>
         <div id="toaster-container" class="fixed bottom-0 right-0 m-4 z-[99999]"></div>
         <div id="bottom-sheet" class="fixed bottom-0 left-0 right-0 bg-bg shadow-lg rounded-t-lg transform translate-y-full transition-transform duration-300 h-16 z-[100000]">
             <div class="p-4">
                 <h3 class="text-lg font-bold text-black">Deskripsi Lukisan</h3>
             </div>
-            <div id="bottom-sheet-content" class="hidden p-4 overflow-y-auto h-[80vh] text-black text-center">
-                <ul id="lukisan-list" class="mt-2 flex flex-col gap-6">
+            <div id="bottom-sheet-content" class="hidden p-4 overflow-y-scroll h-[80vh] text-black text-center">
+                <ul id="lukisan-list" class="py-2 flex flex-col gap-6">
                     @foreach ($lukisans as $i => $lukisan)
-                        <li class="mb-2">
+                        <li>
                             <img class="w-60 max-w-full mx-auto" src="{{ $lukisan->image }}" alt="">
                             <p>{{ $lukisan->description }}</p>
                         </li>
                     @endforeach
+                    <li>
+                        <div class="pt-8"></div>
+                    </li>
                 </ul>
                 <button id="close-bottom-sheet" class="absolute top-2 right-2 text-black text-2xl">&times;</button>
             </div>

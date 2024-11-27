@@ -7,7 +7,7 @@
 @section('main')
 <div class="flex flex-col justify-between items-center h-[100dvh] w-full">
     <img class="w-6/8 max-w-80 mt-24" src="{{ asset('assets/img/guest/text-logo.png') }}" alt="">
-    <a href="{{ route('guest.pelukis.index') }}" class="flex justify-center items-center relative">
+    <a href="{{ route('guest.pelukis.index') }}" class="flex justify-center items-center relative animate-breathe">
         <img class="w-6/8 max-w-80" src="{{ asset('assets/img/guest/btn-home.png') }}" alt="Welcome">
         <p class="absolute font-joti text-center text-xl text-light w-44 mt-[-.4rem]">{{__('app.gallery_button')}}</p>
     </a>

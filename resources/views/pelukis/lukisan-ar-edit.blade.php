@@ -1,8 +1,8 @@
 @extends('layouts.pelukis')
 
 @section('main')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Lukisan Dijual /</span> Edit Lukisan</h4>
-    <div class="card mb-4">
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">AR Lukisan /</span> Edit Lukisan AR</h4>
+<div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Edit Lukisan</h5>
         </div>

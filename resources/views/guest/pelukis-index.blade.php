@@ -8,12 +8,33 @@
 <div class="flex flex-col gap-3 justify-center items-center h-[100vh] w-full">
     <img class="w-5/8 max-w-full md:max-w-80 mt-12 lg:mt-16" src="{{ asset('assets/img/guest/text-logo.png') }}" alt="">
 
-    <div class="relative w-72 overflow-hidden" id="carousel-wrapper">
-        <div class="flex transition-transform duration-300 ease-in-out" id="carousel">
+    <div class="relative w-full overflow-hidden" id="carousel-wrapper">
+        <div class="flex snap-x snap-mandatory overflow-x-auto no-scrollbar" id="carousel">
+            <!-- Duplicate items at the beginning for infinite scroll effect -->
             @foreach ($pelukis as $p)
-                <div class="flex-shrink-0 w-72 flex flex-col items-center gap-3">
+                <div class="flex-shrink-0 w-64 mx-2 flex flex-col items-center gap-3 snap-center bg-marun py-4 px-2 rounded-xl border-4 border-orange">
                     <img class="w-full h-36 lg:h-auto object-contain aspect-square rounded-lg" src="{{ $p->profile_picture }}" alt="{{ $p->name }}">
-                    <a href="{{ route('guest.pelukis.detail', $p->id) }}" class="bg-marun text-white px-12 py-2 rounded-full text-center font-joti border-4 border-black">
+                    <a href="{{ route('guest.pelukis.detail', $p->id) }}" class="bg-white text-marun px-12 py-2 rounded-full text-center font-joti border-4 border-orange">
+                        {{ $p->name }}
+                    </a>
+                </div>
+            @endforeach
+
+            <!-- Original items -->
+            @foreach ($pelukis as $p)
+                <div class="flex-shrink-0 w-64 mx-2 flex flex-col items-center gap-3 snap-center bg-marun py-4 px-2 rounded-xl border-4 border-orange">
+                    <img class="w-full h-36 lg:h-auto object-contain aspect-square rounded-lg" src="{{ $p->profile_picture }}" alt="{{ $p->name }}">
+                    <a href="{{ route('guest.pelukis.detail', $p->id) }}" class="bg-white text-marun px-12 py-2 rounded-full text-center font-joti border-4 border-orange">
+                        {{ $p->name }}
+                    </a>
+                </div>
+            @endforeach
+
+            <!-- Duplicate items at the end for infinite scroll effect -->
+            @foreach ($pelukis as $p)
+                <div class="flex-shrink-0 w-64 mx-2 flex flex-col items-center gap-3 snap-center bg-marun py-4 px-2 rounded-xl border-4 border-orange">
+                    <img class="w-full h-36 lg:h-auto object-contain aspect-square rounded-lg" src="{{ $p->profile_picture }}" alt="{{ $p->name }}">
+                    <a href="{{ route('guest.pelukis.detail', $p->id) }}" class="bg-white text-marun px-12 py-2 rounded-full text-center font-joti border-4 border-orange">
                         {{ $p->name }}
                     </a>
                 </div>
@@ -21,16 +42,7 @@
         </div>
     </div>
 
-    <!-- Arrow Controls -->
-    <div class="flex justify-center items-center gap-3 mt-6">
-        <button id="prev" class="focus:outline-none">
-            <img class="h-5 lg:h-8" src="{{ asset('assets/img/guest/arrow.svg') }}" alt="Previous">
-        </button>
-        <span class="font-joti text-xl text-marun">Pilih Pelukis</span>
-        <button id="next" class="focus:outline-none rotate-180">
-            <img class="h-5 lg:h-8" src="{{ asset('assets/img/guest/arrow.svg') }}" alt="Next">
-        </button>
-    </div>
+    <span class="font-joti text-xl text-marun mt-6">Pilih Pelukis</span>
 </div>
 @endsection
 
@@ -38,37 +50,55 @@
 <script>
     $(document).ready(function() {
         const $carousel = $('#carousel');
-        const totalItems = $('.flex-shrink-0').length;
         const itemWidth = $('.flex-shrink-0').outerWidth(true); // Get the width of a single item
-        let currentIndex = 0;
+        const totalItems = $('.flex-shrink-0').length / 3; // Total unique items
 
-        // Function to update carousel position
-        function updateCarousel() {
-            const offset = -(itemWidth * currentIndex);
-            $carousel.css('transform', 'translateX(' + offset + 'px)');
+        // Function to snap the carousel to the nearest item
+        function snapCarousel() {
+            const scrollLeft = $carousel.scrollLeft();
+            const currentIndex = Math.round(scrollLeft / itemWidth);
+            const offset = itemWidth * currentIndex;
+            $carousel.animate({ scrollLeft: offset }, 300);
         }
 
-        // Scroll to the next item
-        $('#next').click(function() {
-            if (currentIndex < totalItems - 1) {
-                currentIndex++;
-                updateCarousel();
-            } else {
-                currentIndex = 0;
-                updateCarousel();
+        // Add event listener for snapping effect
+        $carousel.on('scrollstop', function() {
+            snapCarousel();
+        });
+
+        // Trigger scrollstop event after user stops scrolling
+        let isScrolling;
+        $carousel.on('scroll', function() {
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(function() {
+                $carousel.trigger('scrollstop');
+            }, 100);
+        });
+
+        // Handle infinite loop effect
+        $carousel.on('scroll', function() {
+            const scrollLeft = $carousel.scrollLeft();
+            if (scrollLeft <= 0) {
+                $carousel.scrollLeft(itemWidth * totalItems);
+            } else if (scrollLeft >= itemWidth * (totalItems * 2)) {
+                $carousel.scrollLeft(itemWidth * totalItems);
             }
         });
 
-        // Scroll to the previous item
-        $('#prev').click(function() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-            } else {
-                currentIndex = totalItems - 1;
-                updateCarousel();
-            }
-        });
+        // Initialize position
+        $carousel.scrollLeft(itemWidth * totalItems);
     });
 </script>
+@endsection
+
+@section('css')
+<style>
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+</style>
 @endsection

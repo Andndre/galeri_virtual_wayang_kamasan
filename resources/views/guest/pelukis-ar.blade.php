@@ -6,7 +6,6 @@
         @foreach ($lukisans as $lukisan)
         {
             image: "{{ $lukisan->image }}",
-            title: "{{ $lukisan->title }}",
             description: "{{ $lukisan->description }}"
         },
         @endforeach

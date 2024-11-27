@@ -1,7 +1,7 @@
 @extends('layouts.pelukis')
 
 @section('main')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Lukisan Dijual /</span> Tambahkan Lukisan AR</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">AR Lukisan /</span> Tambahkan Lukisan AR</h4>
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Tambahkan Lukisan AR</h5>
@@ -12,7 +12,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="description" required>Deskripsi <span class="text-danger">*</span></label>
                     <textarea name="description" class="form-control" id="description" rows="3" placeholder="Deskripsi Lukisan"></textarea>
-                    <div class="form-text">Inputkan deskripsi lukisan</div>
+                    <div class="form-text">Inputkan deskripsi lukian</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="profile_picture">Gambar Lukisan</label>
