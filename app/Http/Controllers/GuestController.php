@@ -21,7 +21,7 @@ class GuestController extends Controller
     }
 
     public function pelukisDetail($id) {
-        $pelukis = User::find($id)->where('is_admin', 0)->first();
+        $pelukis = User::query()->where('id', $id)->where('is_admin', 0)->first();
         if (is_null($pelukis)) {
             abort(404);
         }
