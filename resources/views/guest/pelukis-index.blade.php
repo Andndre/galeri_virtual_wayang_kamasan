@@ -87,12 +87,6 @@
 
         // Initialize position
         $carousel.scrollLeft(itemWidth * totalItems);
-
-        // Add event listener for mouse wheel to scroll horizontally
-        $carousel.on('wheel', function(event) {
-            event.preventDefault();
-            $carousel.scrollLeft($carousel.scrollLeft() + event.originalEvent.deltaY);
-        });
     });
 </script>
 @endsection
