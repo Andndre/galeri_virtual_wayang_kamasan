@@ -11,7 +11,7 @@
         <img class="w-6/8 max-w-80" src="{{ asset('assets/img/guest/btn-home.png') }}" alt="Welcome">
         <p class="absolute font-joti text-center text-xl text-light w-44 mt-[-.4rem]">{{__('app.gallery_button')}}</p>
     </a>
-    <div class="flex justify-between mb-12 px-12 w-full">
+    <div class="flex justify-center mb-12 px-12 w-full">
         <div class="flex gap-2">
             <button id="settings-button">
                 <img class="w-8" src="{{ asset('assets/img/guest/gear.svg') }}" alt="">
@@ -95,10 +95,10 @@
         @endphp
         @foreach ($panduan as $p)
             <div
-                class="panduan-item mt-3 bg-marun text-white px-6 py-3 rounded-r-full border-black border-r-[4px] border-t-[4px] border-b-[4px] flex gap-3 opacity-0">
-                <div class="rounded-full bg-white p-2 flex items-center justify-center"
-                    style="width: 50px; height: 50px; flex-shrink: 0;">
-                    <img class="w-8 h-8" src="{{ $p['icon'] }}" alt="">
+                class="panduan-item mt-[2px] bg-marun text-white px-6 py-3 rounded-r-full border-black border-r-[4px] border-t-[4px] border-b-[4px] flex gap-3 opacity-0">
+                <div class="rounded-full bg-white p-1 flex items-center justify-center"
+                    style="width: 45px; height: 45px; flex-shrink: 0;">
+                    <img class="w-6 h-6 object-contain" src="{{ $p['icon'] }}" alt="">
                 </div>
                 <p>{{ $p['text'] }}</p>
             </div>

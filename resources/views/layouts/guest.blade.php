@@ -100,18 +100,18 @@
                 <div class="w-full h-6 bg-repeat-x bg-marun" style="background-image: url('{{ asset('assets/img/guest/kiran.png') }}'); background-size: auto 100%;">
                 </div>
             </div>
-            <div class="absolute bottom-52 left-5">
+            {{-- <div class="absolute bottom-52 left-5">
                 <img class="w-2/3 max-w-64" src="{{ asset('assets/img/guest/line.png') }}" alt="Welcome">
             </div>
             <div class="absolute top-52 right-0">
                 <img class="w-2/3 max-w-64 scale-y-[-1]" src="{{ asset('assets/img/guest/line.png') }}" alt="Welcome">
-            </div>
-            <div class="absolute top-24 left-8">
+            </div> --}}
+            {{-- <div class="absolute top-24 left-8">
                 <img class="w-2/3 max-w-48 scale-y-[-1]" src="{{ asset('assets/img/guest/ornamen.png') }}" alt="Welcome">
             </div>
             <div class="absolute bottom-24 right-8">
                 <img class="w-2/3 max-w-48" src="{{ asset('assets/img/guest/ornamen.png') }}" alt="Welcome">
-            </div>
+            </div> --}}
             <div class="w-full h-full flex justify-center items-center z-10">
                 <img class="w-2/3 max-w-64 animate-pop" src="{{ asset('assets/img/guest/splash-logo.png') }}" alt="Welcome">
             </div>

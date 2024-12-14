@@ -6,7 +6,7 @@
 
 @section('main')
 <div class="flex flex-col gap-3 justify-center items-center h-[100vh] w-full">
-    <img class="w-5/8 max-w-full md:max-w-80 mt-12 lg:mt-16" src="{{ asset('assets/img/guest/text-logo.png') }}" alt="">
+    <img class="w-5/8 max-w-full md:max-w-80" src="{{ asset('assets/img/guest/text-logo.png') }}" alt="">
 
     <div class="relative w-full overflow-hidden" id="carousel-wrapper">
         <div class="flex snap-x snap-mandatory overflow-x-auto no-scrollbar" id="carousel">
