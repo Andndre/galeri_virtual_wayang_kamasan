@@ -18,15 +18,11 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+</IfModule>
 
-    # Disable caching
-    <FilesMatch "\.(html|htm|js|css)$">
-        FileETag None
-        <IfModule mod_headers.c>
-            Header unset ETag
-            Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
-            Header set Pragma "no-cache"
-            Header set Expires "Thu, 1 Jan 1970 00:00:00 GMT"
-        </IfModule>
-    </FilesMatch>
+# Disable caching
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
 </IfModule>
