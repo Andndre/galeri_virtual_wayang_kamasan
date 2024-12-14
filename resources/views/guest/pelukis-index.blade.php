@@ -78,9 +78,11 @@
         // Handle infinite loop effect
         $carousel.on('scroll', function() {
             const scrollLeft = $carousel.scrollLeft();
-            if (scrollLeft <= 0) {
-                $carousel.scrollLeft(itemWidth * totalItems);
-            } else if (scrollLeft >= itemWidth * (totalItems * 2)) {
+            if (scrollLeft <= itemWidth) {
+                $carousel.stop(true, true); // Stop any ongoing animations
+                $carousel.scrollLeft(itemWidth * (totalItems + 1));
+            } else if (scrollLeft >= itemWidth * (totalItems * 2 - 1)) {
+                $carousel.stop(true, true); // Stop any ongoing animations
                 $carousel.scrollLeft(itemWidth * totalItems);
             }
         });
