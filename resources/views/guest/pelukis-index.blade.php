@@ -5,7 +5,7 @@
 @endsection
 
 @section('main')
-<div class="flex flex-col gap-3 justify-center items-center h-[100vh] w-full">
+<div class="flex flex-col gap-5 pt-16 justify-center items-center h-[100dvh] w-full">
     <img class="w-5/8 max-w-full md:max-w-80" src="{{ asset('assets/img/guest/text-logo.png') }}" alt="">
 
     <div class="relative w-full overflow-hidden" id="carousel-wrapper">
