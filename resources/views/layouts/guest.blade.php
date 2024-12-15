@@ -19,9 +19,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Joti+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}">
     <!-- Scripts -->
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-    <link rel="stylesheet" href="{{ asset('build/assets/app-D5ACnWeX.css') }}">
-    <script type="module" src="{{ asset('build/assets/app-CrG75o6_.js') }}" defer></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-D5ACnWeX.css') }}">
+    <script type="module" src="{{ asset('build/assets/app-CrG75o6_.js') }}" defer></script> --}}
     {{-- @endvite --}}
 
     @yield('css')
