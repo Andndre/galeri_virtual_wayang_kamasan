@@ -29,7 +29,7 @@
 
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
 
-    <script src="https://launchar.app/sdk/v1?key=2UImotyZtwATacB3CvxzVqyNWfqGn4ZF&redirect=true"></script>
+    <script src="https://launchar.app/sdk/v1?key=5aBe43oIyUoBC3PyhermEi3oqqswm07z&redirect=true"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700&display=swap"
         rel="stylesheet" />
 
