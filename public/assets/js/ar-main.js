@@ -24,11 +24,20 @@ async function generateLaunchCode() {
 
 function variantLaunch() {
     // If we have a valid Variant Launch SDK, we can generate a Launch Code. This will allow iOS users to jump right into the app without having to visit the Launch Card page.
-    window.addEventListener("vlaunch-initialized", (e) => {
+    window.addEventListener("vlaunch", (e) => {
         // clear innerHtml of qr-code
         document.getElementById("qr-code").innerHTML = "";
         generateLaunchCode();
     });
+
+    // loop with delay to check if Variant Launch SDK is loaded
+    let interval = setInterval(() => {
+        if (typeof VLaunch !== "undefined") {
+            showToaster("Variant Launch SDK loaded");
+            clearInterval(interval);
+            window.dispatchEvent(new Event("vlaunch"));
+        }
+    }, 1000);
 }
 
 async function checkXRSupport() {
