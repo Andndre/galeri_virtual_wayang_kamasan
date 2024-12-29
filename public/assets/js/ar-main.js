@@ -25,18 +25,10 @@ async function generateLaunchCode() {
 function variantLaunch() {
     // If we have a valid Variant Launch SDK, we can generate a Launch Code. This will allow iOS users to jump right into the app without having to visit the Launch Card page.
     window.addEventListener("vlaunch-initialized", (e) => {
+        // clear innerHtml of qr-code
+        document.getElementById("qr-code").innerHTML = "";
         generateLaunchCode();
     });
-
-    if (VLaunch.initialized) {
-        console.log("Variant Launch initialized");
-        showToaster("Variant Launch berhasil terinisialisasi");
-        generateLaunchCode();
-    } else {
-        console.log("Variant Launch not initialized");
-        showToaster("Variant Launch gagal terinisialisasi");
-        generateLaunchCode();
-    }
 }
 
 async function checkXRSupport() {
