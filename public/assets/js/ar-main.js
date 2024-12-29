@@ -18,7 +18,7 @@ async function generateLaunchCode() {
     let url = await VLaunch.getLaunchUrl(window.location.href);
 
     await generateQRCode(url);
-    showToaster("Launch Code Generated");
+    showToaster("QR berhasil dibuat");
     console.log("Launch Code Generated");
 }
 
@@ -30,10 +30,11 @@ function variantLaunch() {
 
     if (VLaunch.initialized) {
         console.log("Variant Launch initialized");
+        showToaster("Variant Launch berhasil terinisialisasi");
         generateLaunchCode();
     } else {
         console.log("Variant Launch not initialized");
-        showToaster("Variant Launch not initialized");
+        showToaster("Variant Launch gagal terinisialisasi");
         generateLaunchCode();
     }
 }
@@ -117,15 +118,15 @@ class SceneManager {
  */
 function showToaster(message) {
     console.log(message);
-    // const toasterContainer = document.getElementById("toaster-container");
-    // const toaster = document.createElement("div");
-    // toaster.className = "toaster";
-    // toaster.innerText = message;
-    // toasterContainer.appendChild(toaster);
+    const toasterContainer = document.getElementById("toaster-container");
+    const toaster = document.createElement("div");
+    toaster.className = "toaster";
+    toaster.innerText = message;
+    toasterContainer.appendChild(toaster);
 
-    // setTimeout(() => {
-    //     toaster.remove();
-    // }, 3000);
+    setTimeout(() => {
+        toaster.remove();
+    }, 3000);
 }
 /**
  * Manages the rendering process and XR session for the application.
