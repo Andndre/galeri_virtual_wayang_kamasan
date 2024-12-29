@@ -30,8 +30,11 @@ function variantLaunch() {
 
     if (VLaunch.initialized) {
         console.log("Variant Launch initialized");
+        generateLaunchCode();
     } else {
         console.log("Variant Launch not initialized");
+        showToaster("Variant Launch not initialized");
+        generateLaunchCode();
     }
 }
 
@@ -56,7 +59,7 @@ const lukisanFrames = [
     "lukisan-3-frame",
     "lukisan-4-frame",
     "lukisan-5-frame",
-]
+];
 
 class SceneManager {
     constructor(renderer) {
@@ -101,7 +104,7 @@ class SceneManager {
     }
 
     onWindowResize() {
-        console.log('Resized');
+        console.log("Resized");
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
     }
@@ -243,7 +246,7 @@ class RendererManager {
                 sceneManager.reticle.visible = false;
                 document.getElementById("tracking-prompt").style.display =
                     "none";
-                    console.log("Plane found");
+                console.log("Plane found");
                 document.getElementById("instructions").style.display = "block";
             }
 
@@ -333,25 +336,33 @@ async function main() {
             if (texture.image) {
                 // Adjust plane height to maintain aspect ratio
                 const aspectRatio = texture.image.height / texture.image.width;
-                console.log('Aspect ratio: ' + aspectRatio);
-                console.log('Before scaling: ', plane.scale);
+                console.log("Aspect ratio: " + aspectRatio);
+                console.log("Before scaling: ", plane.scale);
 
                 // Apply aspect ratio scaling
-                plane.scale.set(plane.scale.x, plane.scale.y * aspectRatio, plane.scale.z);
-                frame.scale.set(frame.scale.x, frame.scale.y * aspectRatio, frame.scale.z);
+                plane.scale.set(
+                    plane.scale.x,
+                    plane.scale.y * aspectRatio,
+                    plane.scale.z
+                );
+                frame.scale.set(
+                    frame.scale.x,
+                    frame.scale.y * aspectRatio,
+                    frame.scale.z
+                );
 
                 console.log("Parent: ", plane.parent);
                 console.log(plane.parent === model); // True
                 plane.parent?.updateMatrixWorld(true);
-                console.log('After scaling: ', plane.scale);
+                console.log("After scaling: ", plane.scale);
 
                 // Flip the texture vertically
                 texture.flipY = false;
             } else {
-                console.error('Texture image not found for plane:', planes[i]);
+                console.error("Texture image not found for plane:", planes[i]);
             }
         } else {
-            console.error('Plane not found:', planes[i]);
+            console.error("Plane not found:", planes[i]);
         }
     }
 
@@ -371,10 +382,10 @@ async function main() {
             const video = document.getElementById("video-portal");
 
             // Ensure the video is loaded and ready before playing
-            video.addEventListener('canplay', async () => {
+            video.addEventListener("canplay", async () => {
                 showToaster("Video can play");
                 console.log("Video can play");
-                await video.play().catch(error => {
+                await video.play().catch((error) => {
                     showToaster("Video play error: " + error.message);
                     console.error("Video play error:", error);
                 });
@@ -383,7 +394,7 @@ async function main() {
                 videoPortalObject.material.needsUpdate = true;
             });
 
-            video.addEventListener('error', (e) => {
+            video.addEventListener("error", (e) => {
                 showToaster("Video error: " + e.message);
                 console.error("Video error:", e);
             });
@@ -391,17 +402,17 @@ async function main() {
             if (video.readyState >= 2) {
                 showToaster("Video already loaded");
                 console.log("Video already loaded");
-                video.dispatchEvent(new Event('canplay'));
+                video.dispatchEvent(new Event("canplay"));
             } else {
                 showToaster("Loading video");
                 console.log("Loading video");
                 video.load();
             }
 
-            const playButton = document.createElement('button');
+            const playButton = document.createElement("button");
             playButton.innerText = "Play Video";
-            playButton.addEventListener('click', async () => {
-                await video.play().catch(error => {
+            playButton.addEventListener("click", async () => {
+                await video.play().catch((error) => {
                     showToaster("Video play error: " + error.message);
                     console.error("Video play error:", error);
                 });
@@ -436,16 +447,16 @@ async function main() {
         sceneManager.placed = true;
 
         const audio = document.getElementById("audio-portal");
-        audio.addEventListener('canplay', async () => {
+        audio.addEventListener("canplay", async () => {
             showToaster("Audio can play");
             console.log("Audio can play");
-            await audio.play().catch(error => {
+            await audio.play().catch((error) => {
                 showToaster("Audio play error: " + error.message);
                 console.error("Audio play error:", error);
             });
         });
 
-        audio.addEventListener('error', (e) => {
+        audio.addEventListener("error", (e) => {
             showToaster("Audio error: " + e.message);
             console.error("Audio error:", e);
         });
@@ -453,7 +464,7 @@ async function main() {
         if (audio.readyState >= 2) {
             showToaster("Audio already loaded");
             console.log("Audio already loaded");
-            audio.dispatchEvent(new Event('canplay'));
+            audio.dispatchEvent(new Event("canplay"));
         } else {
             showToaster("Loading audio");
             console.log("Loading audio");

@@ -54,6 +54,7 @@
                 opacity: 0;
                 transform: translateX(100%);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -65,6 +66,7 @@
                 opacity: 1;
                 transform: translateX(0);
             }
+
             to {
                 opacity: 0;
                 transform: translateX(100%);
@@ -78,13 +80,14 @@
         var popupVisible = false;
     </script>
     <div id="overlay" class="max-h-[100dvh] overflow-hidden relative">
-        <div id="instructions" class="bg-[#470C02] z-[100000] w-full text-center hidden absolute top-0 p-4">Tekan lingkaran untuk memunculkan ruangan</div>
+        <div id="instructions" class="bg-[#470C02] z-[100000] w-full text-center hidden absolute top-0 p-4">Tekan
+            lingkaran untuk memunculkan ruangan</div>
         <audio id="audio-portal">
             {{-- if language preference is set to id, then use assets/music/indonesia-wayang-kamasan-gallery.mp3 --}}
             @if (session()->has('locale') && session('locale') == 'id')
                 <source src="{{ asset('assets/music/indonesia-wayang-kamasan-gallery.mp3') }}" type="audio/mpeg">
             @else
-            {{-- else, use assets/music/english-wayang-kamasan-gallery.mp3 --}}
+                {{-- else, use assets/music/english-wayang-kamasan-gallery.mp3 --}}
                 <source src="{{ asset('assets/music/english-wayang-kamasan-gallery.mp3') }}" type="audio/mpeg">
             @endif
         </audio>
@@ -93,7 +96,8 @@
         </video>
         <div id="tracking-prompt"><img src="{{ asset('assets/img/ar/hand.png') }}" /></div>
         <div id="toaster-container" class="fixed bottom-0 right-0 m-4 z-[99999]"></div>
-        <div id="bottom-sheet" class="fixed bottom-0 left-0 right-0 bg-bg shadow-lg rounded-t-lg transform translate-y-full transition-transform duration-300 h-16 z-[100000]">
+        <div id="bottom-sheet"
+            class="fixed bottom-0 left-0 right-0 bg-bg shadow-lg rounded-t-lg transform translate-y-full transition-transform duration-300 h-16 z-[100000]">
             <div class="p-4">
                 <h3 class="text-lg font-bold text-black">Deskripsi Lukisan</h3>
             </div>
@@ -112,7 +116,9 @@
                 <button id="close-bottom-sheet" class="absolute top-2 right-2 text-black text-2xl">&times;</button>
             </div>
         </div>
-        <button id="expand-bottom-sheet" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-marun font-joti text-white px-6 py-3 rounded-full border-black border-[4px] z-[99999]" style="display: none;">
+        <button id="expand-bottom-sheet"
+            class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-marun font-joti text-white px-6 py-3 rounded-full border-black border-[4px] z-[99999]"
+            style="display: none;">
             Show Details
         </button>
         <script>
@@ -129,7 +135,8 @@
         </script>
     </div>
     <div id="app">
-        <a href="#"><img id="variant-logo" alt="Logo" src="{{ asset('assets/img/logo/text-logo.png') }}" /></a>
+        <a href="#"><img id="variant-logo" alt="Logo"
+                src="{{ asset('assets/img/logo/text-logo.png') }}" /></a>
         <h2>Galeri Virtual @yield('nama.pelukis')</h2>
         <div id="ar-not-supported">
             <p>
@@ -139,11 +146,11 @@
                 For documentation & support, visit
                 <a href="https://launch.variant3d.com/docs">https://launch.variant3d.com</a>.
             </p>
-            <div id="qr-code"></div>
+            <div id="qr-code" class="flex justify-center"></div>
         </div>
         <div id="loading-container">
             <div id="loading-bar"></div>
-    </div>
+        </div>
     </div>
     <div id="ar-button-container"></div>
     {{-- modal deskripsi lukisan --}}
