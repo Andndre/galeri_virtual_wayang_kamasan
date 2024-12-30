@@ -13,6 +13,7 @@ window.addEventListener("vlaunch-initialized", (e) => {
 });
 
 if (VLaunch.initialized) {
+    document.getElementById("qr-code").innerHTML = "";
     console.log("A");
     generateLaunchCode();
 } else {
