@@ -3,6 +3,30 @@ import { GLTFLoader } from "three/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/jsm/loaders/DRACOLoader.js";
 import { ARButton } from "three/jsm/webxr/ARButton.js";
 
+let initialized = false;
+
+window.addEventListener("vlaunch-initialized", (e) => {
+    console.log("C");
+    initialized = true;
+    document.getElementById("qr-code").innerHTML = "";
+    generateLaunchCode();
+});
+
+if (VLaunch.initialized) {
+    console.log("A");
+    generateLaunchCode();
+} else {
+    console.log("B");
+    setTimeout(() => {
+        if (!initialized) {
+            console.log("D");
+            document.getElementById("qr-code").innerHTML =
+                "Web XR tidak didukung di Variant Launch Anda";
+            generateQRCode(window.location.href);
+        }
+    }, 10000);
+}
+
 async function generateQRCode(text) {
     new QRCode("qr-code", {
         text: text,
@@ -20,31 +44,6 @@ async function generateLaunchCode() {
     await generateQRCode(url);
     showToaster("QR berhasil dibuat");
     console.log("Launch Code Generated");
-}
-
-function variantLaunch() {
-    // If we have a valid Variant Launch SDK, we can generate a Launch Code. This will allow iOS users to jump right into the app without having to visit the Launch Card page.
-    window.addEventListener("vlaunch", (e) => {
-        // clear innerHtml of qr-code
-        document.getElementById("qr-code").innerHTML = "";
-        generateLaunchCode();
-    });
-
-    // loop with delay to check if Variant Launch SDK is loaded
-    let interval = setInterval(() => {
-        if (typeof VLaunch !== "undefined") {
-            showToaster("Variant Launch SDK loaded");
-            clearInterval(interval);
-            window.dispatchEvent(new Event("vlaunch"));
-        }
-    }, 1000);
-}
-
-async function checkXRSupport() {
-    if ("xr" in navigator) {
-        return await navigator.xr.isSessionSupported("immersive-ar");
-    }
-    return false;
 }
 
 const planes = [
@@ -290,16 +289,7 @@ function createARButton(renderer) {
 }
 
 async function main() {
-    showToaster("Checking XR support...");
-    const ARSupported = await checkXRSupport();
-    if (!ARSupported) {
-        showToaster("XR not supported");
-        variantLaunch();
-        document.getElementById("ar-not-supported").style.display = "block";
-        return;
-    }
-
-    showToaster("XR supported");
+    showToaster("Initializing AR...");
     document.getElementById("ar-not-supported").style.display = "none";
     const rendererManager = new RendererManager();
     const sceneManager = new SceneManager(rendererManager.renderer);
@@ -479,4 +469,12 @@ async function main() {
     rendererManager.animate(sceneManager);
 }
 
-main();
+if ("xr" in navigator) {
+    navigator.xr.isSessionSupported("immersive-ar").then((supported) => {
+        if (supported) {
+            //hide "ar-not-supported"
+            document.getElementById("ar-not-supported").style.display = "none";
+            main();
+        }
+    });
+}
