@@ -171,7 +171,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
     @yield('lukisans')
-    <script type="module" src="{{ asset('assets/js/ar-main-1.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/ar-main-2.js') }}"></script>
 </body>
 
 </html>
