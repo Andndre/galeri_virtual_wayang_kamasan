@@ -119,15 +119,15 @@ class SceneManager {
  */
 function showToaster(message) {
     console.log(message);
-    const toasterContainer = document.getElementById("toaster-container");
-    const toaster = document.createElement("div");
-    toaster.className = "toaster";
-    toaster.innerText = message;
-    toasterContainer.appendChild(toaster);
+    // const toasterContainer = document.getElementById("toaster-container");
+    // const toaster = document.createElement("div");
+    // toaster.className = "toaster";
+    // toaster.innerText = message;
+    // toasterContainer.appendChild(toaster);
 
-    setTimeout(() => {
-        toaster.remove();
-    }, 3000);
+    // setTimeout(() => {
+    //     toaster.remove();
+    // }, 3000);
 }
 /**
  * Manages the rendering process and XR session for the application.
