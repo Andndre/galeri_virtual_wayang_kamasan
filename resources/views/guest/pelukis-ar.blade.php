@@ -2,14 +2,7 @@
 
 @section('lukisans')
     <script>
-        var lukisans = [
-            @foreach ($lukisans as $lukisan)
-                {
-                    image: "{{ e($lukisan->image) }}",
-                    description: "{{ e($lukisan->description) }}"
-                },
-            @endforeach
-        ]
+        var lukisans = {!! json_encode($lukisans) !!};
     </script>
 @endsection
 
